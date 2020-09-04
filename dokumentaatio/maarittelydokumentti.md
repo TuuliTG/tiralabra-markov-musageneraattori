@@ -5,8 +5,21 @@
 Projektin tarkoituksena on luoda ohjelma, joka saa syötteenä/opetusmateriaalina musiikkikappaleen, ja tuottaa tämän jälkeen opitun perusteella uuden kappaleen. 
 ## Syöte
 Musiikki on nuotinnettu ASCII-muotoisena tekstinä. Tekstitiedosto täytyy parsia ennen ohjelmaan syöttämistä erillisiksi merkeiksi. 
-Tekstimuotoisessa nuotissa on määritelty mm. sävelkorkeus, nuotin pituus, mahdolliset tauot ja oktaavialat. Lisäksi monenlaisia kaaria ja musiikillisia merkkejä voi olla mukana. Näistä oleellisia tässä projektissa on sävelkorkeudet ja rytmit. 
+Tekstimuotoisessa nuotissa on määritelty mm. sävelkorkeus, nuotin pituus, mahdolliset tauot ja oktaavialat. Lisäksi monenlaisia kaaria ja musiikillisia merkkejä voi olla mukana. Näistä oleellisia tässä projektissa on sävelkorkeudet ja rytmit. Merkit voisi olla hyvä tallentaa byte-muodossa tekstin sijaan. 
 
 ## Käytettävät tietorakenteet ja algoritmit
+* Markovin ketju:
+ * 1. asteen: ottaa huomioon vain yhden edeltävän merkin
+ * 2. asteen: ottaa huomioon kaksi edeltävää merkkiä
+ * 3. asteen: ottaa huomioon kolme edeltävää merkkiä
 * Trie 
- * Mahdollistaa merkkijonojen tallentamisen ja etsimisen tehokkaasti
+ * Mahdollistaa merkkien tallentamisen ja etsimisen tehokkaasti
+ * Haun ja lisäyksen aikavaativuus on O(m), missä m on haettavan/lisättävän merkkijonon pituus. Trien huono puoli on suuri tilavaativuus, mutta tässä tapauksessa eri merkkijonoja on sen verran rajoitettu määrä (käytettäessä esim. byte-tyyppiä mahdolliset arvot ovat välillä -128 ... 127), että tällä ei liene välilä.
+ 
+ ## Lähteet
+ * (http://web.stanford.edu/class/archive/cs/cs166/cs166.1146/lectures/09/Small09.pdf)
+ * https://www.geeksforgeeks.org/trie-insert-and-search/
+ * https://en.wikipedia.org/wiki/Markov_chain
+ * 
+
+

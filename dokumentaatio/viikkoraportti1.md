@@ -1,14 +1,23 @@
 # Viikkoraportti 1
 
 ## Mitä olen tehnyt tällä viikolla?
-*Ensimmäinen päivä meni eri aiheisiin tutustuessa. Oli melko vaikeaa päättää, mihin aiheeseen kannattaisi tarttua. Tuntuu, että löytyi itselle läheinen aihe musiikin parista.
-*LilyPond-musiikin nuotinnusmekanismin opiskelua. 
-Projektin luominen GitHubiin ja NetBeansiin. 
+* Aiheen päättäminen
+* LilyPond-musiikin nuotinnusmekanismin opiskelua.
+* Trie-rakenteeseen tutustumista 
+* Projektin luominen GitHubiin ja NetBeansiin. 
+* Tutustuminen CheckStyleen
+* Tutustuminen markdowniin
+* Tutustuminen JavaDociin
 
 ## Miten ohjelma on edistynyt?
+Suurin osa ajasta on mennyt eri osa-alueiden haltuunottamisessa. Varsinainen ohjelma ei ole vielä päässyt alkua pidemmälle. Olen luonut alustavat luokat ja testiluokat. Olen kokeillut, että checkstyle toimii ja antaa palautetta.
 
-## Mitä opin tällä viikolla / tänään?
-Tähän projektiin liittyy paljon uutta haltuunotettavaa. En ole ennen käyttänyt Markdownia enkä ole ennen tehnyt gradle-projektia. Tämä on ensimmäinen harjoitustyöni yliopistolla, joten työskentelytapa on minulle uusi. 
+## Mitä opin tällä viikolla?
+Tähän projektiin liittyy paljon uutta haltuunotettavaa. En ole ennen käyttänyt Markdownia tai Checkstyleä enkä ole ennen tehnyt gradle-projektia. Tämä on ensimmäinen harjoitustyöni yliopistolla, joten työskentelytapa dokumentointeineen on minulle uusi. 
 
 ## Mikä jäi epäselväksi tai tuottanut vaikeuksia?
-Projektin saaminen liikkeelle on ollut melko haastavaa. Tuntuu, etten tiedä, missä järjestyksessä kannattaisi edetä. 
+Varsinaisen ohjelman saaminen liikkeelle on ollut melko haastavaa. Tuntuu, etten tiedä, missä järjestyksessä kannattaisi edetä. Huomaan hyppiväni asiasta toiseen; tutkin markdownia, kirjoittelen raportteja, säädän pieniä asioita. Minulla ei ole vielä selkeää mielikuvaa ohjelman rakenteesta ja ehkä siksi ohjelmoinnin aloittaminen tuntuu vaikealta. Sain kyllä ohjaajalta jo hyviä vinkkejä, jotka selkeyttivät tilannetta jonkin verran.
+Lilypondin asentamisessa ilmeni ongelmia, joita en saanut vielä ratkaistua. 
+
+## Mitä teen seuraavaksi?
+Suurin osa projektin pienistä työkaluista (JavaDoc, Markdown-raportit, Checkstyle, GitHub,...) on asennettu ja saatu toimimaan, joten seuraavaksi yritän keskittyä olennaiseen eli ohjelmointiin. Tavoitteenani on saada trie-rakenne ainakin karkeasti ohjelmoitua. 
