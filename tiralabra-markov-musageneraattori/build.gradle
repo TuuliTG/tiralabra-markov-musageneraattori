@@ -1,16 +1,22 @@
-apply plugin: 'java'
-apply plugin: 'jacoco'
+plugins {
+    // Apply the java plugin to add support for Java
+    id 'java'
 
-jacocoTestReport {
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
+    // Apply the application plugin to add support for building an application
+    id 'application'
+
+    id 'jacoco'
+    
+    id 'checkstyle'
+}
+
+checkstyle {
+    toolVersion '8.17';    // your choice here
 }
 
 check.dependsOn jacocoTestReport
 
-apply plugin: 'application'
+
 
 
 mainClassName = 'tiralabra.markovGeneraattori.Main'
@@ -21,6 +27,13 @@ repositories {
 
 dependencies {
     testCompile 'junit:junit:4.12'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
 }
 
 
