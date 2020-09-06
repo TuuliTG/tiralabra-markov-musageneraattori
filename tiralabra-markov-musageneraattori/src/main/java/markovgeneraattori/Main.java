@@ -5,6 +5,10 @@
  */
 package markovgeneraattori;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 /**
  *
  * @author tgtuuli
@@ -15,8 +19,28 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Tekstinkasittelija t = new Tekstinkasittelija();
-        t.chars("aqa'b a 5c4c1ef");
+        //byte[] aanet = {0, 2, 4, 5, 7, 9, 11, 12, 2, 4, 8, 0, 2, 12, 2, 4, 7 , 2, 4, 9, 2,4,9, 2,4,9, 2,4,8,3,4,5,6,7,2,1,4,6,7,8,9,11,4,12,5,7,4,3,9,7,11,0,1,4,5,6,7,8,4,10};
+       byte [] aanet = {0,0, 0, 4,2,2,2,5,4,4,2,2,0,4,4,4,4,7,5,2,2,2,2,5,4,0,0,0,4,2,2,2,5,4,4,2,2,0}; //ukko-noa
+       //byte[] aanet = {1};
+        Trie trie = new Trie();
+        trie.lisaa(aanet);
+        //byte[] haku = {12,4};
+        
+        //System.out.println(trie.haku(haku));
+        /*
+        HashMap<Byte, TrieSolmu> lapset = trie.getLapsetJosAvainLoytyy(haku);
+        if(lapset != null) {
+            for (Map.Entry<Byte,TrieSolmu> entry : lapset.entrySet()) {
+                System.out.println("Key = " + entry.getKey() + 
+                                 ", laskuri = " + entry.getValue().getLaskuri()); 
+            } 
+        }
+         */   
+        Generaattori gen = new Generaattori(trie);
+        byte[] savellys = gen.kappale(20, (byte)0, 3);
+        for (int i = 0; i < savellys.length; i++) {
+            System.out.println("sävel: " + savellys[i]);
+        }
     }
     
 }
