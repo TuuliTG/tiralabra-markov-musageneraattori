@@ -1,7 +1,7 @@
 
 package markovgeneraattori;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 /**
  *
@@ -45,8 +45,7 @@ public class Trie {
         TrieSolmu nykyinen = juuri;
         for (int i = 0; i < avain.length; i++) {
             byte aani = avain[i];
-            System.out.println("haettava ääni: " + aani);
-            TrieSolmu solmu = nykyinen.getLapset().get(aani);
+            TrieSolmu solmu = nykyinen.getLapset()[aani];
             if (solmu == null) {
                 return false;
             }
@@ -55,36 +54,41 @@ public class Trie {
         return true;
     }
     
-    public HashMap<Byte, TrieSolmu> getSeuraajat(byte[] hakuavain){
+    public ArrayList<TrieSolmu> getSeuraajat(int[] hakuavain){
         TrieSolmu nykyinen = juuri;
         for (int i = 0; i < hakuavain.length; i++) {
-            byte aani = hakuavain[i];
-            TrieSolmu solmu = nykyinen.getLapset().get(aani);
+            int aani = hakuavain[i];
+            TrieSolmu solmu = nykyinen.getLapset()[aani];
             if (solmu == null) {
                 return null;
             }
             nykyinen = solmu;
-            
         }
-        return nykyinen.getLapset();
+        return nykyinen.getSeuraajatListassa();
     }
     
     private void lisaaTriehen(byte[] aanet, int aste){
         TrieSolmu nykyinen = juuri;
         for (int i = 0; i < aanet.length - aste; i++) {
                 for(int j = i; j <= i+aste; j++) {
-                    byte aani = aanet[j];
+                    int aani = aanet[j];
+                    aani += 128; // skaalataan niin, ettei tule negatiivisia lukuja
                     System.out.println("ääni: " + aani);
-                    if (nykyinen.getLapset().get(aani) == null) {
+                    
+                    if (nykyinen.getLapset()[aani] == null) {
                         System.out.println("lisätään " + aani + " solmuun" + nykyinen);
-                        nykyinen.getLapset().put(aani, new TrieSolmu(aani));
+                        aani -= 128;
+                        byte tunnus = (byte)aani;
+                        aani += 128;
+                        TrieSolmu solmu = new TrieSolmu(tunnus);
+                        nykyinen.getLapset()[aani] = solmu;
+                        nykyinen.getSeuraajatListassa().add(solmu);
                     } else {
-                        TrieSolmu paivitettava = nykyinen.getLapset().
-                                get(aani);
+                        TrieSolmu paivitettava = nykyinen.getLapset()[aani];
                         paivitettava.lisaaLaskuriin();
-                        nykyinen.getLapset().put(aani, paivitettava);
+                        nykyinen.getLapset()[aani]=paivitettava;
                     }
-                    nykyinen = nykyinen.getLapset().get(aani);
+                    nykyinen = nykyinen.getLapset()[aani];
                 }
                 nykyinen = juuri;
             }

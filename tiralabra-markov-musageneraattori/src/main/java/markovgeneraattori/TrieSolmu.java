@@ -1,7 +1,7 @@
 
 package markovgeneraattori;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 /**
  *
  * @author tgtuuli
@@ -9,21 +9,24 @@ import java.util.HashMap;
 public class TrieSolmu {
     
     private byte tunnus;
-    private HashMap<Byte, TrieSolmu> lapset;
+    private final TrieSolmu[] lapset;
+    private ArrayList<TrieSolmu> seuraajatListassa;
     public int laskuri;
 
     public TrieSolmu() {
-        this.lapset = new HashMap<>();
+        this.lapset = new TrieSolmu[256];
         laskuri = 1;
-    }
-    public TrieSolmu( byte tunnus) {
-        this.lapset = new HashMap<>();
-        laskuri = 1;
-        this.tunnus = tunnus;
+        seuraajatListassa = new ArrayList<>();
     }
     
+    public TrieSolmu(byte tunnus) {
+        this.lapset = new TrieSolmu[256];
+        laskuri = 1;
+        this.tunnus = tunnus;
+        seuraajatListassa = new ArrayList<>();
+    }
 
-    public HashMap<Byte, TrieSolmu> getLapset() {
+    public TrieSolmu[] getLapset() {
         return lapset;
     }
     
@@ -38,8 +41,11 @@ public class TrieSolmu {
     public byte getTunnus() {
         return tunnus;
     }
+
+    public ArrayList<TrieSolmu> getSeuraajatListassa() {
+        return seuraajatListassa;
+    }
+
     
     
-    
-     
 }

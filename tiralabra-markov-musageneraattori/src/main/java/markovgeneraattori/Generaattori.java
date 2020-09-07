@@ -5,8 +5,8 @@
  */
 package markovgeneraattori;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+
 import java.util.Random;
 
 /**
@@ -17,7 +17,7 @@ import java.util.Random;
 public class Generaattori {
     
     
-    Trie trie;
+    private Trie trie;
 
     public Generaattori(Trie trie) {
         
@@ -29,95 +29,80 @@ public class Generaattori {
      * @param pituus sekvenssin pituus
      * @param alkusavel mistä kappale halutaan aloittaa
      * @param aste kertoo, millä Markovin ketjun asteella hakuavaimia voi käyttää (esim. 3).
-     * @return 
+     * @return taulukko eli valmis sekvenssi
      */
-    public byte[] kappale(int pituus, byte alkusavel, int aste){
+    public byte[] muodostaSekvenssi(int pituus, byte alkusavel, int aste){
+        
+        //Taulukko, johon sekvenssi tallennetaan
         byte[] taulukko = new byte[pituus];
-        byte[] alku = new byte[1];
-        alku[0] = alkusavel;
+        
         taulukko[0]=alkusavel;
-        byte seuraava = haeSeuraava(alku);
-        taulukko[1]=seuraava;
-        byte toinen = taulukko[1];
-        byte[] kaksiEns = new byte[2];
-        kaksiEns[0]=alkusavel;
-        kaksiEns[1] = toinen;
-        seuraava = haeSeuraava(kaksiEns);
-        taulukko[2]=seuraava;
-        byte[] valiaikainen = new byte[3];
-        for (int i = 0; i < pituus-aste; i++) {
-            for(int j = 0; j < 3; j++) {
-                
-                valiaikainen[j] = taulukko[i+j];
-            }
-            seuraava = haeSeuraava(valiaikainen);
-            taulukko[i+3] = seuraava;
-            
+        
+        //Ensimmäiset täytyy hakea erikseen, ennen kuin sekvenssin pituus on asteluvun pituinen
+        int indeksi = 0;
+        while (indeksi < aste -1) {
+            byte seuraava = haeSeuraava(taulukko, 0,indeksi);
+            taulukko[indeksi+1]=seuraava;
+            indeksi++;
+        }
+        //Tästä eteenpäin generoidaan sekvenssiä asteluvun pituisen hakusanan perusteella
+        for(int i = 0; i < pituus-aste; i++) {
+            byte seuraava = haeSeuraava(taulukko, i,i+aste-1);
+            taulukko[i+aste]=seuraava;
         }
         return taulukko;
     }
   
     /**
      * Hakee triestä hakuavaimen perusteella mahdolliset seuraajat ja valitsee seuraavan sävelen
-     * @param hakuavain täytyy olla pienempi kuin aste, jolla Trie on rakennettu
-     * @return 
+     * @param hakuavain taulukko, jossa on tähän asti luotu sekvenssi
+     * @param mista mistä taulukon kohdasta avain alkaa
+     * @param mihin mihin taulukon kohtaan avain loppuu
+     * @return seuraava sekvenssiin tuleva alkio byte-muodossa
      */
-    private byte haeSeuraava(byte[] hakuavain){
-        System.out.print("hakuavain: ");
-        for (int i = 0; i < hakuavain.length; i++) {
-            System.out.print(hakuavain[i] + ", ");
+    private byte haeSeuraava(byte[] hakuavain, int mista, int mihin){
+        //luodaan hakuavainta varten int-muotoinen taulukko
+        int[] avain = new int[mihin+1-mista];
+        int indeksi = 0;
+        //luodaan hakuavain
+        while(mista <= mihin) {
+            avain[indeksi] = hakuavain[mista] + 128; //skaalataan, jotta luku on positiivinen
+            indeksi++;
+            mista++;
         }
-        System.out.println("");
-        HashMap<Byte, TrieSolmu> lapset = trie.getSeuraajat(hakuavain);
+        //haetaan hakuavaimella löytyvät seuraajat
+        ArrayList<TrieSolmu> lapset = trie.getSeuraajat(avain);
         
-        //Jos ei löydy seuraajia, kokeillaan pienemmällä haulla
+        //pienennetään hakua, jos seuraajia ei löydy
         if (lapset == null) {
-            System.out.println("ei lapsia");
-            byte[] uusiHaku = new byte[2];
-            uusiHaku[0] = hakuavain[hakuavain.length-2];
-            uusiHaku[1] = hakuavain[hakuavain.length-1];
-            lapset = trie.getSeuraajat(uusiHaku);
-        } //pienennetään vielä hakua, jos ei vieläkään löydy
-        if (lapset == null) {
-            System.out.println("ei lapsia");
-            byte[] uusiHaku = new byte[1];
-            uusiHaku[0] = hakuavain[hakuavain.length-1];
+            int[] uusiHaku = new int[1];
+            uusiHaku[0] = avain[avain.length-1];
             lapset = trie.getSeuraajat(uusiHaku);
         }
-        //Käsittele jos ei vieläkään seuraajia (arvotaan lähistöltä seuraaja)
+        //Käsittele jos ei vieläkään seuraajia (palautetaan sama kuin haun ensimmäinen)
         if(lapset == null){
+            byte palautus = (byte)avain[0];
+            palautus -= 128; //muunnetaan takaisin alkuperäiseksi
+            return palautus;
+        }
+        //jos lapsia on vaan yksi, valitaan se suoraan arpomatta
+        if(lapset.size()==1) {
+                return lapset.get(0).getTunnus();
         }
         
-        int koko = 0;
-        koko = lapset.size();
-        //Luodaan seuraajille vielä oma taulukko
-        TrieSolmu[] solmut = new TrieSolmu[koko];
-        int laskuri = 0;
+        //aloitetaan seuraavan alkion valitseminen
         int kokonaissumma = 0;
         
-        System.out.println("lapsia " + lapset.size());
         //Käydään läpi mahdolliset seuraajat ja lasketaan niiden esiintyvyydet yhteen
-        for (Map.Entry<Byte,TrieSolmu> entry : lapset.entrySet()) {
+        for (TrieSolmu solmu : lapset) {
 
-            System.out.println("Key = " + entry.getKey() + 
-                             ", laskuri = " + entry.getValue().getLaskuri()); 
+            kokonaissumma += solmu.getLaskuri();
             
-            kokonaissumma += entry.getValue().getLaskuri();
-            solmut[laskuri] = entry.getValue(); //lisätään mahdollinen seuraaja listaan
-            laskuri++;
-            //jos lapsia on vaan yksi, valitaan se suoraan arpomatta
-            if(lapset.size()==1) {
-                System.out.println("vain yksi lapsi, joten valitaan se");
-                return entry.getKey();
-            }
-
         }
             
-            System.out.println("kokonaissumma " + kokonaissumma);
-            //Arvotaan seuraava
-            TrieSolmu seuraava = this.getSatunnainen(kokonaissumma, solmut);
-            System.out.println("seuraava sävel " + seuraava.getTunnus());
-            return seuraava.getTunnus();
+        //Arvotaan seuraava
+        TrieSolmu seuraava = this.getSatunnainen(kokonaissumma, lapset);
+        return seuraava.getTunnus();
             
     }
     
@@ -128,17 +113,18 @@ public class Generaattori {
      * @param solmut solmut, joista valitaan 
      * @return seuraavaksi tuleva solmu
      */
-    private TrieSolmu getSatunnainen(int kokonaissumma, TrieSolmu[] solmut) {
+    private TrieSolmu getSatunnainen(int kokonaissumma, ArrayList<TrieSolmu> solmut) {
+        //Muuta tämä omaksi toteutukseksi
         Random rand = new Random();
+        //arvottu kokonaisluku 
         int indeksi = 1 + rand.nextInt(kokonaissumma);
-        System.out.println("random = " + indeksi);
         int summa = 0;
         int i = 0;
+        //etsitään arvottua lukua vastaava alkio
         while(summa < indeksi) {
-            summa += solmut[i].getLaskuri();
+            summa += solmut.get(i).getLaskuri();
             i++;
         }
-        System.out.println("valitaan solmu " + solmut[Math.max(0, i-1)].getTunnus());
-        return solmut[Math.max(0, i-1)];
+        return solmut.get(Math.max(0, i-1));
     }
 }
