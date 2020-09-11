@@ -10,41 +10,50 @@ public class TrieSolmu {
     
     private byte tunnus;
     private final TrieSolmu[] lapset;
+    private Taulukkolista<TrieSolmu> seuraajat;
     private ArrayList<TrieSolmu> seuraajatListassa;
     public int laskuri;
 
     public TrieSolmu() {
         this.lapset = new TrieSolmu[256];
-        laskuri = 1;
-        seuraajatListassa = new ArrayList<>();
+        this.laskuri = 1;
+        this.seuraajatListassa = new ArrayList<>();
+        this.seuraajat = new Taulukkolista<>();
     }
     
     public TrieSolmu(byte tunnus) {
         this.lapset = new TrieSolmu[256];
-        laskuri = 1;
+        this.laskuri = 1;
         this.tunnus = tunnus;
-        seuraajatListassa = new ArrayList<>();
+        this.seuraajatListassa = new ArrayList<>();
+        this.seuraajat = new Taulukkolista<>();
     }
 
     public TrieSolmu[] getLapset() {
-        return lapset;
+        return this.lapset;
     }
     
     public int getLaskuri(){
-        return laskuri;
+        return this.laskuri;
     }
     
     public void lisaaLaskuriin(){
-        laskuri += 1;
+        this.laskuri += 1;
     }
 
     public byte getTunnus() {
-        return tunnus;
+        return this.tunnus;
     }
 
     public ArrayList<TrieSolmu> getSeuraajatListassa() {
-        return seuraajatListassa;
+        return this.seuraajatListassa;
     }
+
+    public Taulukkolista<TrieSolmu> getSeuraajat() {
+        return this.seuraajat;
+    }
+    
+    
 
     
     
