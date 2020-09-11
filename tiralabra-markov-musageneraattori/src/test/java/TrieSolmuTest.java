@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import markovgeneraattori.TrieSolmu;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -13,7 +14,34 @@ import static org.junit.Assert.*;
  */
 public class TrieSolmuTest {
     
-    public TrieSolmuTest() {
+    @Test
+    public void trieSolmuTyhjaKonstruktori() {
+        TrieSolmu s = new TrieSolmu();
+        assertEquals(s.getLaskuri(), 1);
+        assertEquals(s.getLapset().length, 256);
+        
+        
     }
+    
+    @Test 
+    public void trieSolmuTunnusLoytyy() {
+        TrieSolmu s = new TrieSolmu((byte)1);
+        assertEquals(s.getTunnus(), 1);
+    }
+    
+    @Test 
+    public void lisaaLaskuriinToimii() {
+        TrieSolmu s = new TrieSolmu((byte)1);
+        s.lisaaLaskuriin();
+        assertEquals(s.getLaskuri(), 2);
+    }
+    
+    @Test
+    public void seuraajatListaLoytyy() {
+        TrieSolmu s = new TrieSolmu((byte)1);
+        assertTrue(s.getSeuraajatListassa().isEmpty());
+    }
+    
+    
     
 }
