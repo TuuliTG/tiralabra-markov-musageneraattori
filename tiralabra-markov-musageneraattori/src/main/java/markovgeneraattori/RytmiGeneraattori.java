@@ -10,7 +10,9 @@ import java.util.Random;
 import javax.naming.CannotProceedException;
 
 /**
- *
+ * Tämä luokka on vielä hyvin vaiheessa. 
+ * On epävarmaa, kannattaako rytmiä edes käsitellä Markovin ketjun tai trien avulla tässä yhteydessä. 
+ * En siis aio siistiä tätä luokkaa ainakaan hetkeen.
  * @author tgtuuli
  */
 public class RytmiGeneraattori {
@@ -31,6 +33,7 @@ public class RytmiGeneraattori {
      * @param tahtilaji
      * @return 
      */
+    /*
     public byte[] muodostaSekvenssi(int tahtienLkm, byte alku, int aste, int tahtilaji) throws Exception{
         int tahteja = 0;
         
@@ -47,9 +50,9 @@ public class RytmiGeneraattori {
             tahti = 0;
         }
         tahdissaJaljella = tahtilaji-tahti;
-        int[] ensimmainen = new int[1];
+        byte[] ensimmainen = new byte[1];
         taulukko[0]=alku;
-        ensimmainen[0] = alku +128;
+        ensimmainen[0] = alku;
         byte seuraava = haeSeuraava(ensimmainen, tahdissaJaljella);
 
         tahti = this.lisaaRytmiTahtiin(seuraava, tahtilaji, tahti);
@@ -65,9 +68,9 @@ public class RytmiGeneraattori {
         
         taulukko[1]=seuraava;
         byte toinen = taulukko[1];
-        int[] kaksiEnsimmaista = new int[2];
-        kaksiEnsimmaista[0]=alku +128;
-        kaksiEnsimmaista[1] = toinen+128;
+        byte[] kaksiEnsimmaista = new byte[2];
+        kaksiEnsimmaista[0]=alku;
+        kaksiEnsimmaista[1] = toinen;
         seuraava = haeSeuraava(kaksiEnsimmaista, tahdissaJaljella);
         tahti = this.lisaaRytmiTahtiin(seuraava, tahtilaji, tahti);
         if(tahti == 0) {
@@ -80,13 +83,13 @@ public class RytmiGeneraattori {
         tahdissaJaljella = tahtilaji-tahti;
         
         taulukko[2]=seuraava;
-        int[] valiaikainen = new int[3];
+        byte[] valiaikainen = new byte[3];
         int indeksi = 0;
         while (tahteja < tahtienLkm) {
             System.out.println("tahteja nyt : " + tahteja);
             for(int i = 0; i < 3; i++) {
 
-                valiaikainen[i] = taulukko[indeksi + i]+128;
+                valiaikainen[i] = taulukko[indeksi + i];
             }
             seuraava = haeSeuraava(valiaikainen, tahdissaJaljella);
             tahti = this.lisaaRytmiTahtiin(seuraava, tahtilaji, tahti);
@@ -106,13 +109,15 @@ public class RytmiGeneraattori {
             return taulukko;
         
     }
+    */
   
     /**
      * Hakee triestä hakuavaimen perusteella mahdolliset seuraajat ja valitsee seuraavan sävelen
      * @param hakuavain täytyy olla pienempi kuin aste, jolla Trie on rakennettu
      * @return 
      */
-    private byte haeSeuraava(int[] hakuavain, double maksimiPituus){
+    /*
+    private byte haeSeuraava(byte[] hakuavain, double maksimiPituus){
         
         ArrayList<TrieSolmu> lapset = trie.getSeuraajat(hakuavain);
         ArrayList<TrieSolmu> sopivat = new ArrayList<>();
@@ -120,7 +125,7 @@ public class RytmiGeneraattori {
         //Jos ei löydy seuraajia, kokeillaan pienemmällä haulla
         
         if (lapset == null) {
-            int[] uusiHaku = new int[2];
+            byte[] uusiHaku = new byte[2];
             uusiHaku[0] = hakuavain[hakuavain.length-2];
             uusiHaku[1] = hakuavain[hakuavain.length-1];
             lapset = trie.getSeuraajat(uusiHaku);
@@ -128,7 +133,7 @@ public class RytmiGeneraattori {
         
         //pienennetään vielä hakua, jos ei vieläkään löydy
         if (lapset == null) {
-            int[] uusiHaku = new int[1];
+            byte[] uusiHaku = new byte[1];
             uusiHaku[0] = hakuavain[hakuavain.length-1];
             lapset = trie.getSeuraajat(uusiHaku);
         }
@@ -175,7 +180,7 @@ public class RytmiGeneraattori {
             return seuraava.getTunnus();
             
     }
-    
+    */
      /**
      * satunnaisen solmun valitseminen, perustuen kuitenkin todennäköisyyteen
      * 
@@ -183,6 +188,7 @@ public class RytmiGeneraattori {
      * @param solmut solmut, joista valitaan 
      * @return seuraavaksi tuleva solmu
      */
+    /*
     private TrieSolmu getSatunnainen(int kokonaissumma, ArrayList<TrieSolmu> solmut) {
         Random rand = new Random();
         int indeksi = 1 + rand.nextInt(kokonaissumma);
@@ -208,6 +214,7 @@ public class RytmiGeneraattori {
         } else {
             return 0;
         }
-        
+     
     }
+*/
 }
