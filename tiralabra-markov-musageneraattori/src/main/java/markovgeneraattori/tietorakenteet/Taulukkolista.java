@@ -1,8 +1,8 @@
 
-package markovgeneraattori;
+package markovgeneraattori.tietorakenteet;
 
 /**
- *
+ * @param <T> tyyppi
  * @author tgtuuli
  */
 public class Taulukkolista<T> {
@@ -37,10 +37,14 @@ public class Taulukkolista<T> {
     }
     
     public T get(int i) {
-        if(i < 0 || i >= this.koko) {
+        if (i < 0 || i >= this.koko) {
             throw  new NullPointerException();
         }
         return (T) this.taulukkolista[i];
+    }
+    
+    public boolean onTyhja(){
+        return this.koko == 0;
     }
     
     
