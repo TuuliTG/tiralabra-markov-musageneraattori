@@ -5,9 +5,9 @@
  */
 
 import java.util.ArrayList;
-import markovgeneraattori.Taulukkolista;
-import markovgeneraattori.Trie;
-import markovgeneraattori.TrieSolmu;
+import markovgeneraattori.tietorakenteet.Taulukkolista;
+import markovgeneraattori.tietorakenteet.Trie;
+import markovgeneraattori.tietorakenteet.TrieSolmu;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -38,9 +38,9 @@ public class TrieTest {
         byte[] alkiot = {1,2};
         t.lisaa(alkiot);
         byte[] haku1 = new byte[1];
-        byte[] haku2 = new byte[1];
+
         haku1[0]=1;
-        haku2[0]=2;
+        byte[] haku2 = {1,2};
         assertTrue(t.haku(haku1));
         assertTrue(t.haku(haku2));
     }
@@ -51,7 +51,7 @@ public class TrieTest {
         byte[] alkiot = {1,2,3,4,5,6,7,8,9,10};
         t.lisaa(alkiot);
         byte[] haku1 = {2,3,4};
-        byte[] haku2 = {10};
+        byte[] haku2 = {9,10};
         
         assertTrue(t.haku(haku1));
         assertTrue(t.haku(haku2));

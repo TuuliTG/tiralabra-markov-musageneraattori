@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 
-import markovgeneraattori.Generaattori;
-import markovgeneraattori.Trie;
+import markovgeneraattori.generaattori.Generaattori;
+import markovgeneraattori.tietorakenteet.Trie;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

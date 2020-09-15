@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-import markovgeneraattori.TrieSolmu;
+import markovgeneraattori.tietorakenteet.TrieSolmu;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -39,7 +39,7 @@ public class TrieSolmuTest {
     @Test
     public void seuraajatListaLoytyy() {
         TrieSolmu s = new TrieSolmu((byte)1);
-        assertTrue(s.getSeuraajatListassa().isEmpty());
+        assertTrue(s.getSeuraajat().onTyhja());
     }
     
     
