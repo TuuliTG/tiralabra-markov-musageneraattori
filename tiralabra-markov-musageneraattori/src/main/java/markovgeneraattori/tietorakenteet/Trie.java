@@ -1,7 +1,5 @@
 
-package markovgeneraattori;
-
-import java.util.ArrayList;
+package markovgeneraattori.tietorakenteet;
 
 /**
  * Trie tietorakenne, joka tallettaa syötteenä saadut byte-tyyppiset alkiot niin, 
@@ -21,18 +19,19 @@ public class Trie {
     }
     
     public void lisaa(byte[] aanet) {
-        if(aanet.length > maksimiAste) {
+        if (aanet.length > maksimiAste) {
             this.lisaaTriehen(aanet, maksimiAste);
-        } 
-        for (int i = aanet.length-1; i >= aanet.length-maksimiAste; i--) {
-            byte[] aani = new byte[1];
-            aani[0] = aanet[i];
-            this.lisaaTriehen(aani, 1);
+        } else {
+            this.lisaaTriehen(aanet, aanet.length);
         }
-       
-        
     }
-    //palauttaa true, jos avain löytyy
+    /**
+     * Hakee triestä avaimen perusteella. 
+     * Viimeisenä triehen lisätyn alkion hakeminen yksinään 
+     * ei toimi, koska sitä ei tässä ohjelmassa tarvita.
+     * @param avain
+     * @return true, jos avain löytyy triestä
+     */
     public boolean haku(byte[] avain){
         
         TrieSolmu nykyinen = juuri;
@@ -47,7 +46,11 @@ public class Trie {
         }
         return true;
     }
-    
+    /**
+     * 
+     * @param hakuavain
+     * @return 
+     */
     public Taulukkolista<TrieSolmu> getSeuraajat(byte[] hakuavain){
         TrieSolmu nykyinen = juuri;
         for (int i = 0; i < hakuavain.length; i++) {
@@ -61,45 +64,56 @@ public class Trie {
         return nykyinen.getSeuraajat();
     }
     
+    /**
+     * 
+     * @param aanet
+     * @param aste 
+     */
     private void lisaaTriehen(byte[] aanet, int aste){
+       
         TrieSolmu nykyinen = juuri;
-        if(aanet.length == 1) {
-            int aani = aanet[0] +128;
-            if (nykyinen.getLapset()[aani] == null) {
-                        System.out.println("lisätään " + aani + " solmuun" + nykyinen);
-                        aani -= 128;
-                        byte tunnus = (byte)aani;
-                        aani += 128;
-                        TrieSolmu solmu = new TrieSolmu(tunnus);
-                        nykyinen.getLapset()[aani] = solmu;
-                        nykyinen.getSeuraajat().lisaa(solmu);
-            }
+        if (aanet.length == 1) {
+            this.lisaaUusiTaiPaivita(juuri, aanet[0]);
         } else {
                 for (int i = 0; i < aanet.length - aste; i++) {
-                    for(int j = i; j <= i+aste; j++) {
+                    for (int j = i; j <= i + aste; j++) {
                         int aani = aanet[j];
-                        aani += 128; // skaalataan niin, ettei tule negatiivisia lukuja
-                        System.out.println("ääni: " + aani);
-
-                        if (nykyinen.getLapset()[aani] == null) {
-                            System.out.println("lisätään " + aani + " solmuun" + nykyinen);
-                            aani -= 128;
-                            byte tunnus = (byte)aani;
-                            aani += 128;
-                            TrieSolmu solmu = new TrieSolmu(tunnus);
-                            nykyinen.getLapset()[aani] = solmu;
-                            nykyinen.getSeuraajat().lisaa(solmu);
-                        } else {
-                            TrieSolmu paivitettava = nykyinen.getLapset()[aani];
-                            paivitettava.lisaaLaskuriin();
-                            nykyinen.getLapset()[aani]=paivitettava;
-                        }
-                        nykyinen = nykyinen.getLapset()[aani];
+                        this.lisaaUusiTaiPaivita(nykyinen, aani);
+                        nykyinen = nykyinen.getLapset()[aani + 128];
                     }
+                    System.out.println("---------");
                     nykyinen = juuri;
                 }
             }
-        
+        if (aste > 1 && aanet.length > 1) {
+            byte[] loput = new byte[aste];
+            System.arraycopy(aanet, aanet.length - aste, loput, 0, aste);
+            if (loput.length > 1) {
+                lisaaTriehen(loput, aste - 1);
+            }
+        }
     }
     
+    /**
+     * 
+     * @param juuri solmu, jonka perään uusi solmu lisätään tai jonka lasta päivitetään
+     * @param aani, jota ollaan lisäämässä
+     */
+    private void lisaaUusiTaiPaivita(TrieSolmu juuri, int aani) {
+        byte tunnus = (byte) aani;
+        aani += 128;
+        
+        if (juuri.getLapset()[aani] == null) {
+            TrieSolmu lisattava = new TrieSolmu(tunnus);
+            juuri.getLapset()[aani] = lisattava;
+            juuri.getSeuraajat().lisaa(lisattava);
+            System.out.println("lisätään " + tunnus);
+        }  else {
+
+            TrieSolmu paivitettava = juuri.getLapset()[aani];
+            paivitettava.lisaaLaskuriin();
+            System.out.println("päivitetään " + paivitettava.getTunnus());
+            juuri.getLapset()[aani] = paivitettava;
+        }
+    }
 }

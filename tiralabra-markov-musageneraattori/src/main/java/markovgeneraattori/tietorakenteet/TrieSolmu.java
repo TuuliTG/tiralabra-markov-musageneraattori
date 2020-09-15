@@ -1,7 +1,6 @@
 
-package markovgeneraattori;
+package markovgeneraattori.tietorakenteet;
 
-import java.util.ArrayList;
 /**
  *
  * @author tgtuuli
@@ -11,13 +10,12 @@ public class TrieSolmu {
     private byte tunnus;
     private final TrieSolmu[] lapset;
     private Taulukkolista<TrieSolmu> seuraajat;
-    private ArrayList<TrieSolmu> seuraajatListassa;
     public int laskuri;
 
     public TrieSolmu() {
+        this.tunnus = -128;
         this.lapset = new TrieSolmu[256];
         this.laskuri = 1;
-        this.seuraajatListassa = new ArrayList<>();
         this.seuraajat = new Taulukkolista<>();
     }
     
@@ -25,7 +23,6 @@ public class TrieSolmu {
         this.lapset = new TrieSolmu[256];
         this.laskuri = 1;
         this.tunnus = tunnus;
-        this.seuraajatListassa = new ArrayList<>();
         this.seuraajat = new Taulukkolista<>();
     }
 
@@ -43,10 +40,6 @@ public class TrieSolmu {
 
     public byte getTunnus() {
         return this.tunnus;
-    }
-
-    public ArrayList<TrieSolmu> getSeuraajatListassa() {
-        return this.seuraajatListassa;
     }
 
     public Taulukkolista<TrieSolmu> getSeuraajat() {
