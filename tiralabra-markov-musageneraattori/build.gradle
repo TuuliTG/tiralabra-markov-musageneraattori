@@ -25,7 +25,7 @@ jacoco {
 
 
 
-mainClassName = 'tiralabra.markovGeneraattori.Main'
+mainClassName = 'markovgeneraattori.Main'
 
 repositories {
     jcenter()
@@ -33,6 +33,7 @@ repositories {
 
 dependencies {
     testCompile 'junit:junit:4.12'
+    compile 'commons-cli:commons-cli:1.4'
 }
 
 jacocoTestReport {
