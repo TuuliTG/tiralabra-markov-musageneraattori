@@ -6,7 +6,7 @@
 * Käyttöliittymän aloitus
 
 ## Miten ohjelma on edistynyt?
-Tällä viikolla en ole edistynyt niin vauhdilla kuin viime viikolla. Aloitin käyttöliittymän tekemistä. Sen yhteydessä huomasin muutamia muutostarpeita tietorakenteihin ja algoritmeihin. Muutosten tekemisessä ja käyttöliittymässä on mennyt suuri osa tästä viikosta. Tällä hetkellä tuntuu, että ohjelma on pienessä kaaoksessa. Korjattavaa ja siivottavaa riittää.
+Tällä viikolla en ole edistynyt niin vauhdilla kuin viime viikolla. Aloitin käyttöliittymän tekemistä. Sen yhteydessä huomasin muutamia muutostarpeita tietorakenteihin ja algoritmeihin. Muutosten tekemisessä ja käyttöliittymässä on mennyt suuri osa tästä viikosta. Tällä hetkellä tuntuu, että ohjelma on pienessä kaaoksessa. Korjattavaa ja siivottavaa riittää. Checkstyle ja Jacoco ovat käytössä, mutta koska viime hetkellä ohjelmaan tuli runsaasti muutoksia, en ehtinyt korjata testejä toimiviksi tähän palautukseen enkä siivota koodia Checkstylen avulla. 
 Päätin myös tehdä opetusmateriaalin generaattorille itse manuaalisesti, jotta saan siihen sellaiset ominaisuudet, joita ohjelma tukee. Kirjoitin Bachin sonaatista alkua lilypond-nuotinnuksella. Käyttäjä voi nyt valita, millä Markovin ketjun asteella ohjelma käsittelee opetusmateriaalin, kuinka pitkä generoidusta kappaleesta tulee ja mihin kansioon generoitu .ly-tiedosto tallennetaan. Lilypond-ohjelman avulla käyttäjä voi muuntaa .ly-tiedoston pdf-tiedostoksi (nuotti) sekä midi-tiedostoksi (ääni). 
 
 ## Mitä opin tällä viikolla?
