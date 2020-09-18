@@ -43,5 +43,9 @@ jacocoTestReport {
         html.destination file("${buildDir}/jacocoHtml")
     }
 }
+run {
+    standardInput = System.in
+    standardOutput = System.out
+}
 
 
