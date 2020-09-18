@@ -5,10 +5,8 @@
  */
 package markovgeneraattori;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import UI.Kayttoliittyma;
+
 
 /**
  *
@@ -20,14 +18,12 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-      
-        Taulukkolista<TrieSolmu> lista = new Taulukkolista<>();
-        lista.lisaa(new TrieSolmu((byte)2));
+     
+        Kayttoliittyma k = new Kayttoliittyma();
+        k.kaynnista(args);
         
-        for(int i = 0; i < lista.koko(); i++) {
-            System.out.println(lista.get(i).getTunnus());
-        }
         
     }
+
     
 }

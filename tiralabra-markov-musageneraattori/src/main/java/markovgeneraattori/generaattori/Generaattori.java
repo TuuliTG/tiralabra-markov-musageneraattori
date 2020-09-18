@@ -19,10 +19,19 @@ public class Generaattori {
     
     
     private Trie trie;
+    private Tekstinkasittelija t;
+    private int aste;
 
-    public Generaattori(Trie trie) {
+    public Generaattori(int aste) {
+        this.aste = aste;
+        this.trie = new Trie(aste);
+        t = new Tekstinkasittelija();
         
-        this.trie = trie;
+    }
+    
+    public void lueOpetusmateriaali(String opetusmateriaali) {
+        Taulukkolista<Byte> aanet = t.muunnaKappaleTekstistaByteiksi(opetusmateriaali);
+        trie.lisaa(aanet);
         
     }
     /**
@@ -32,7 +41,7 @@ public class Generaattori {
      * @param aste kertoo, millä Markovin ketjun asteella hakuavaimia voi käyttää (esim. 3).
      * @return taulukko eli valmis sekvenssi
      */
-    public byte[] muodostaSekvenssi(int pituus, byte alkusavel, int aste){
+    public byte[] muodostaSekvenssi(int pituus, byte alkusavel){
         
         //Taulukko, johon sekvenssi tallennetaan
         byte[] taulukko = new byte[pituus];

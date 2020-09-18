@@ -5,7 +5,6 @@
  */
 package markovgeneraattori.generaattori;
 
-import java.util.ArrayList;
 import markovgeneraattori.tietorakenteet.Taulukkolista;
 
 /**
@@ -14,6 +13,22 @@ import markovgeneraattori.tietorakenteet.Taulukkolista;
  */
 public class Tekstinkasittelija {
     
+    private String[] aanetMerkkijonoina;
+    private Taulukkolista<Integer> rytmi;
+    private int viimeisinRytmi;
+
+    public Tekstinkasittelija() {
+        this.aanetMerkkijonoina = new String[] {"c", "cis","des",  "d", "dis", "es","e", "f", "fis", "ges", "g", "gis","as", "a", "ais", "b", "h"};
+        this.rytmi = new Taulukkolista<>();
+        this.viimeisinRytmi = 0;
+    }
+    
+    
+    /**
+     * 
+     * @param teksti
+     * @return 
+     */
     public Taulukkolista<Byte> muunnaKappaleTekstistaByteiksi(String teksti) {
         String[] tiedostonOsat = teksti.trim().split("[{}]");
         String kappale = tiedostonOsat[1]; 
@@ -27,79 +42,110 @@ public class Tekstinkasittelija {
         return bytet;
     }
     
-    public String muunnaByteistaTekstiksi(byte[] bytet) {
+    /**
+     * Luo generoidusta byte-taulukosta lilypond-ohjelmalle sopivan tekstin 
+     * Tässä opetusmateriaalina on Bach ja ulostulo on myös siihen sopiva
+     * @param bytet
+     * @return String
+     */
+    public String muunnaByteistaTekstiksiBach(byte[] bytet) {
         String s = "\\version \"2.20.0\"\n\\language \"suomi\"\n"
-                + "\\score {\n{";
+                + "\\score {\n{ \\key f \\major \\time 3/8 \n";
         for (int i = 0; i < bytet.length; i++) {
             byte b = bytet[i];
-            s = s + this.muunnaBytestaMerkiksi(b) + " ";
+            s = s + this.muunnaBytestaMerkiksi(b) + "16 ";
         }
         
-        s = s + "}\n\\layout {} \n \\midi {\\tempo 4 = 90} \n}";
+        s = s + "}\n\\layout {} \n \\midi {\\tempo 8 = 150} \n}";
         
         return s;
         
     }
     
     
-    
+    /**
+     * Muuntaa nuotin numerosta merkkijonomuotoon
+     * @param tunnus numeron tunnus
+     * @return String
+     */
     private String muunnaBytestaMerkiksi(byte tunnus) {
-        if (tunnus == 0) return "c'";
-        if (tunnus == 1) return "cis'";
-        if (tunnus == 2) return "d'";
-        if (tunnus == 3) return "dis'";
-        if (tunnus == 4) return "e'";
-        if (tunnus == 5) return "f'";
-        if (tunnus == 6) return "fis'";
-        if (tunnus == 7) return "g'";
-        if (tunnus == 8) return "gis'";
-        if (tunnus == 9) return "a'";
-        if (tunnus == 10) return "b'";
-        if (tunnus == 11) return "h'";
-        if (tunnus == 12) return "c''";
-        if (tunnus == 13) return "cis''";
-        if (tunnus == 14) return "d''";
-        if (tunnus == 15) return "dis''";
-        if (tunnus == 16) return "e''";
-        if (tunnus == 17) return "f''";
-        if (tunnus == 18) return "fis''";
-        if (tunnus == 19) return "g''";
-        if (tunnus == 20) return "gis''";
-        if (tunnus == 21) return "a''";
-        if (tunnus == 22) return "b''";
-        if (tunnus == 23) return "h''";
+        int oktaaviala = 0;
+        System.out.println("tunnus "  + tunnus);
+        if (tunnus > 16 ) {
+            while(tunnus > 16) {
+                tunnus -= 17;
+                oktaaviala++;
+                
+            }
+            String vastaus = "" + this.aanetMerkkijonoina[tunnus];
+            for (int i = 0; i <= oktaaviala; i++) {
+                vastaus += "'";
+            }
+            return vastaus;
+        } else if (tunnus >= 0) {
+            return "" + this.aanetMerkkijonoina[tunnus] + "'";
+        } else if (tunnus < 0 && tunnus > -17) {
+            return "" + this.aanetMerkkijonoina[tunnus+17];
+        } else {
+            while(tunnus < 0) {
+                tunnus += 17;
+                oktaaviala++;
+                
+            }
+            String vastaus = "" + this.aanetMerkkijonoina[tunnus];
+            for (int i = 1; i < oktaaviala; i++) {
+                vastaus += ",";
+            }
+            return vastaus;
+        }
         
-        else return "Kääntäminen ei onnistunut";
     }
     
+    /**
+     * Muuntaa merkkijonon (esim. d''16) numeroksi (byte). 
+     * @param savel merkkijono, joka kuvaa muunnettavaa säveltä
+     * @return byte 
+     */
     private byte muunnaStringistaByteksi(String savel) {
-        if (savel.equals("c'")) return 0;
-        if (savel.equals("cis'")) return 1;
-        if (savel.equals("d'")) return 2;
-        if (savel.equals("dis'")) return 3;
-        if (savel.equals("e'")) return 4;
-        if (savel.equals("f'")) return 5;
-        if (savel.equals("fis'")) return 6;
-        if (savel.equals("g'")) return 7;
-        if (savel.equals("gis'")) return 8;
-        if (savel.equals("a'")) return 9;
-        if (savel.equals("b'")) return 10;
-        if (savel.equals("h'")) return 11;
-        if (savel.equals("c''")) return 12;
-        if (savel.equals("cis''")) return 13;
-        if (savel.equals("d''")) return 14;
-        if (savel.equals("dis''")) return 15;
-        if (savel.equals("e''")) return 16;
-        if (savel.equals("f''")) return 17;
-        if (savel.equals("fis''")) return 18;
-        if (savel.equals("g''")) return 19;
-        if (savel.equals("gis''")) return 20;
-        if (savel.equals("a''")) return 21;
-        if (savel.equals("b''")) return 22;
-        if (savel.equals("h''")) return 23;
+        int oktaaviala = -1;
+        String[] palat = savel.split("[\\'\\,1248]+");
+        for (int i = 0; i < savel.length(); i++) {
+            if (savel.charAt(i) == '\'') {
+                oktaaviala++;
+            } else if (savel.charAt(i) == ',') {
+                oktaaviala--;
+            } else if (savel.charAt(i) == '1') {
+                if (i < savel.length()-1){
+                    if (savel.charAt(i+1) == '6') {
+                        viimeisinRytmi = 16;
+                    }
+                } else {
+                    viimeisinRytmi = 1;
+                }
+            } else if (savel.charAt(i) == '2') {
+                viimeisinRytmi = 2;
+            } else if (savel.charAt(i) == '4') {
+                viimeisinRytmi = 4;
+            } else if (savel.charAt(i) == '8') {
+                viimeisinRytmi = 8;
+            }  
+        }
+       
+        this.rytmi.lisaa(viimeisinRytmi);
         
+        for(int i = 0; i < 17; i++) {
+            if(palat[0].equals(aanetMerkkijonoina[i])) {
+                return (byte) (i + oktaaviala*17);
+            }
+        }
+        return -128;
         
-        else return -128;
     }
+
+    public Taulukkolista<Integer> getRytmi() {
+        return rytmi;
+    }
+    
+    
     
 }

@@ -18,6 +18,7 @@ public class GeneraattoriTest {
     @Test
     public void muodostaaOikeanPituisenSekvenssin() {
         Trie t = new Trie(3);
+        
         byte[] alkiot = {2,2,5,4,7,6,6,1,2,5,6,1,2,3,8,9,6,4,5,3,7,7,5,4,4,3,3,1};
         t.lisaa(alkiot);
         Generaattori g = new Generaattori(t);

@@ -18,11 +18,11 @@ public class Trie {
         this.maksimiAste = maksimiaste;
     }
     
-    public void lisaa(byte[] aanet) {
-        if (aanet.length > maksimiAste) {
+    public void lisaa(Taulukkolista<Byte> aanet) {
+        if (aanet.koko() > maksimiAste) {
             this.lisaaTriehen(aanet, maksimiAste);
         } else {
-            this.lisaaTriehen(aanet, aanet.length);
+            this.lisaaTriehen(aanet, aanet.koko());
         }
     }
     /**
@@ -69,15 +69,15 @@ public class Trie {
      * @param aanet
      * @param aste 
      */
-    private void lisaaTriehen(byte[] aanet, int aste){
+    private void lisaaTriehen(Taulukkolista<Byte> aanet, int aste){
        
         TrieSolmu nykyinen = juuri;
-        if (aanet.length == 1) {
-            this.lisaaUusiTaiPaivita(juuri, aanet[0]);
+        if (aanet.koko() == 1) {
+            this.lisaaUusiTaiPaivita(juuri, aanet.get(0));
         } else {
-                for (int i = 0; i < aanet.length - aste; i++) {
+                for (int i = 0; i < aanet.koko() - aste; i++) {
                     for (int j = i; j <= i + aste; j++) {
-                        int aani = aanet[j];
+                        int aani = aanet.get(j);
                         this.lisaaUusiTaiPaivita(nykyinen, aani);
                         nykyinen = nykyinen.getLapset()[aani + 128];
                     }
@@ -85,11 +85,16 @@ public class Trie {
                     nykyinen = juuri;
                 }
             }
-        if (aste > 1 && aanet.length > 1) {
+        if (aste > 1 && aanet.koko() > 1) {
             byte[] loput = new byte[aste];
-            System.arraycopy(aanet, aanet.length - aste, loput, 0, aste);
+            Taulukkolista loput2 = new Taulukkolista();
+            
+            //System.arraycopy(aanet, aanet.koko() - aste, loput, 0, aste);
+            for (int i = 0; i < loput.length; i++) {
+                loput2.lisaa(loput[i]);
+            }
             if (loput.length > 1) {
-                lisaaTriehen(loput, aste - 1);
+                lisaaTriehen(loput2, aste - 1);
             }
         }
     }

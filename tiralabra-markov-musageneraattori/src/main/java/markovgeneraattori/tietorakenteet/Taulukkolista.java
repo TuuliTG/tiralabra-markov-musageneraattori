@@ -47,5 +47,11 @@ public class Taulukkolista<T> {
         return this.koko == 0;
     }
     
+    public void lisaaMonta(T[] array) {
+        for (int i = 0; i < array.length; i++) {
+            this.lisaa(array[i]);
+        }
+    }
+    
     
 }
