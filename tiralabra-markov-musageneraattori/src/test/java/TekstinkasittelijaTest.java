@@ -32,7 +32,7 @@ public class TekstinkasittelijaTest {
             "}";
         Taulukkolista<Byte> bytet = kasittelija.muunnaKappaleTekstistaByteiksi(t);
         byte[] todellinen = new byte[bytet.koko()];
-        byte[] oletus = {0,4,7,4};
+        byte[] oletus = {0,6,10,6};
         for(int i = 0; i < bytet.koko(); i++) {
             todellinen[i] = bytet.get(i);
         }
@@ -50,7 +50,7 @@ public class TekstinkasittelijaTest {
             "}";
         Taulukkolista<Byte> bytet = kasittelija.muunnaKappaleTekstistaByteiksi(t);
         byte[] todellinen = new byte[bytet.koko()];
-        byte[] oletus = {0,4,7,4,2,2};
+        byte[] oletus = {0,6,10,6,3,3};
         for(int i = 0; i < bytet.koko(); i++) {
             todellinen[i] = bytet.get(i);
         }
@@ -68,7 +68,7 @@ public class TekstinkasittelijaTest {
             "}";
         Taulukkolista<Byte> bytet = kasittelija.muunnaKappaleTekstistaByteiksi(t);
         byte[] todellinen = new byte[bytet.koko()];
-        byte[] oletus = {0,16,-5,4,-34,2};
+        byte[] oletus = {0,23,-7,6,-48,3};
         for(int i = 0; i < bytet.koko(); i++) {
             todellinen[i] = bytet.get(i);
         }
@@ -117,29 +117,27 @@ public class TekstinkasittelijaTest {
     }
     
     @Test
-    public void muunnaByteistaTekstiksiTestYksiOktaaviala() {
-        byte[] bytet = {0,1,2,3,4,0};
-        String t = kasittelija.muunnaByteistaTekstiksi(bytet);
-        String oletus = "\\version \"2.20.0\"\n" +
-            "\\language \"suomi\"\n" +
-            "\\score {\n" +
-            "{c' cis' d' dis' e' c' }\n" +
+    public void muunnaByteistaTekstiksiBachTestYksiOktaaviala() {
+        byte[] bytet = {0,1,3,4,6,0};
+        String t = kasittelija.muunnaByteistaTekstiksiBach(bytet);
+        String oletus = "\\version \"2.20.0\"\n\\language \"suomi\"\n"
+                + "\\score {\n{ \\key f \\major \\time 3/8 \n"
+                + "c'16 cis'16 d'16 dis'16 e'16 c'16 }\n" +
             "\\layout {} \n" +
-            " \\midi {\\tempo 4 = 90} \n" +
+            " \\midi {\\tempo 8 = 150} \n" +
             "}";
         assertEquals(oletus, t);
     }
     
     @Test
-    public void muunnaByteistaTekstiksiTestUseampiOktaaviala() {
-        byte[] bytet = {0,15,-23,3,27,-1};
-        String t = kasittelija.muunnaByteistaTekstiksi(bytet);
-        String oletus = "\\version \"2.20.0\"\n" +
-            "\\language \"suomi\"\n" +
-            "\\score {\n" +
-            "{c' dis'' cis, dis' dis''' h }\n" +
+    public void muunnaByteistaTekstiksiBachTestUseampiOktaaviala() {
+        byte[] bytet = {0,21,-33,4,38,-1};
+        String t = kasittelija.muunnaByteistaTekstiksiBach(bytet);
+        String oletus = "\\version \"2.20.0\"\n\\language \"suomi\"\n"
+                + "\\score {\n{ \\key f \\major \\time 3/8 \n" +
+            "c'16 dis''16 cis,16 dis'16 dis'''16 h16 }\n" +
             "\\layout {} \n" +
-            " \\midi {\\tempo 4 = 90} \n" +
+            " \\midi {\\tempo 8 = 150} \n" +
             "}";
         assertEquals(oletus, t);
     }
