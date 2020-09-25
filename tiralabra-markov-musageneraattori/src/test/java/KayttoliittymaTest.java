@@ -1,5 +1,5 @@
 
-import UI.Kayttoliittyma;
+import kayttoliittyma.Kayttoliittyma;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;

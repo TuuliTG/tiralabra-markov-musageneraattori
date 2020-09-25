@@ -5,7 +5,12 @@
  */
 package markovgeneraattori;
 
-import UI.Kayttoliittyma;
+import kayttoliittyma.Kayttoliittyma;
+import java.nio.file.Paths;
+import java.util.Scanner;
+import markovgeneraattori.generaattori.Generaattori;
+import markovgeneraattori.generaattori.Tekstinkasittelija;
+import markovgeneraattori.tietorakenteet.Taulukkolista;
 
 
 /**
@@ -21,9 +26,8 @@ public class Main {
      */
     public static void main(String[] args) {
      
-        Kayttoliittyma k = new Kayttoliittyma();
-        k.kaynnista();
-        
+       Kayttoliittyma k = new Kayttoliittyma();
+       k.kaynnista();
         
     }
 

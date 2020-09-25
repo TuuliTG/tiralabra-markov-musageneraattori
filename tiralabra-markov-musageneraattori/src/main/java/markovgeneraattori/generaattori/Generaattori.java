@@ -28,11 +28,17 @@ public class Generaattori {
         
     }
     /**
-     * 
-     * @param opetusmateriaali 
+     * Käsittelee tekstinkäsittelijällä opetusmateriaalin ja lisää sen triehen.
+     * @param opetusmateriaali .ly-tiedostomuodossa
      */
     public void lueOpetusmateriaali(String opetusmateriaali) {
         Taulukkolista<Byte> aanet = t.muunnaKappaleTekstistaByteiksi(opetusmateriaali);
+        Taulukkolista<Integer> rytmi = t.getRytmi();
+        /*
+        for (int i = 0; i < rytmi.koko(); i++) {
+            System.out.print(rytmi.get(i) + " : ");
+        }
+        */
         trie.lisaa(aanet);
         
     }

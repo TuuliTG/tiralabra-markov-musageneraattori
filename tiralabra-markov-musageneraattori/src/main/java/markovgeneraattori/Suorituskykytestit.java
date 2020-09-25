@@ -40,7 +40,7 @@ public class Suorituskykytestit {
             
             for (int j = 0; j < maara; j++) {
                 int luku = random.nextInt(256);
-                byte b = (byte) (luku -128);
+                byte b = (byte) (luku - 128);
                 lista.lisaa(b);
             }
             for (int k = 0; k < n; k++) {
@@ -62,7 +62,7 @@ public class Suorituskykytestit {
                     byte[] avain = new byte[aste];
                     for (int k = 0; k < aste; k++) {
                         int luku = random.nextInt(256);
-                        byte b = (byte) (luku -128);
+                        byte b = (byte) (luku - 128);
                         avain[k] = b;
                     }
                     
@@ -80,12 +80,12 @@ public class Suorituskykytestit {
         }
         System.out.println("Tulokset: ");
         System.out.println("lisäys triehen");
-        for(int i = 0; i< koko.length; i++) {
+        for (int i = 0; i < koko.length; i++) {
             System.out.println(koko[i] + ": " + lisayksetTriehen[i] + "ms");
         }
         
         System.out.println("haku");
-        for(int i = 0; i< koko.length; i++) {
+        for (int i = 0; i < koko.length; i++) {
             System.out.println(koko[i] + ": " + hakuTriesta[i] + "ms");
         }
        

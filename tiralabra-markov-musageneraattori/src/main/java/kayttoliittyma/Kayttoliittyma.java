@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UI;
+package kayttoliittyma;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.nio.file.Paths;
 import java.util.Scanner;
+import markovgeneraattori.Suorituskykytestit;
 import markovgeneraattori.generaattori.Generaattori;
 import markovgeneraattori.generaattori.Tekstinkasittelija;
 import markovgeneraattori.tietorakenteet.Taulukkolista;
@@ -55,10 +56,10 @@ public class Kayttoliittyma {
         //valikko:
         System.out.println("Valitse opetusmateriaali:");
         System.out.println("[1] Bach viulusonaatti g-molli osa Presto");
-        System.out.println("[2] Lastenlaulupotpuri");
-        
+        //System.out.println("[2] Lastenlaulupotpuri");
+        //TÄHÄN TARVITAAN VIELÄ VALIDOINTI
         String valinta = lukija.nextLine();
-        if(valinta.equals("L")) {
+        if (valinta.equals("L")) {
             return;
         }
         int kappale = Integer.parseInt(valinta);
@@ -66,7 +67,7 @@ public class Kayttoliittyma {
         while (aste < 1 || aste > 6) {
             System.out.println("Millä asteella haluat käyttää generaattoria? (1 - 6) ");
             valinta = lukija.nextLine();
-            if(valinta.equals("L")) {
+            if (valinta.equals("L")) {
                 return;
             }
             aste = Integer.parseInt(valinta);
@@ -76,7 +77,7 @@ public class Kayttoliittyma {
         while (pituus < 1) {
             System.out.println("Generoidun kappaleen pituus tahteina:");
             valinta = lukija.nextLine();
-            if(valinta.equals("L")) {
+            if (valinta.equals("L")) {
                 return;
             }
             pituus = Integer.parseInt(valinta);
@@ -84,19 +85,19 @@ public class Kayttoliittyma {
         
         System.out.println("Mihin kansioon talletetaan?");
         String polku = lukija.nextLine();
-        if(polku.equals("L")) {
+        if (polku.equals("L")) {
             return;
         }
-        if(polku.isEmpty()) {
+        if (polku.isEmpty()) {
             System.out.println("Et syöttänyt polkua."); 
             System.out.println("----------------------");
             valikko2();
         }
         String generoituKappale = "";
-        if(kappale == 1) {
+        if (kappale == 1) {
             generoituKappale = generoiMusiikkiaBachinTyyliin(aste, pituus);
         } else if (kappale == 2) {
-            System.out.println("ei vielä valmista");
+            System.out.println("ei vielä toista kappaletta");
         } else {
             System.out.println("numero ei kelpaa");
         }
@@ -126,7 +127,11 @@ public class Kayttoliittyma {
     }
     
     private void ajaSuorituskykytestit() {
-        System.out.println("testit");
+        System.out.println("Millä asteella suoritetaan? [1-8]"); // TEE TÄHÄN VIELÄ SYÖTTEEN VALIDOINTI
+        int aste = Integer.parseInt(lukija.nextLine());
+        Suorituskykytestit testit = new Suorituskykytestit();
+        testit.suorita(aste);
+        
     }
     
     private String generoiMusiikkiaBachinTyyliin(int aste, int pituus) {
@@ -136,17 +141,17 @@ public class Kayttoliittyma {
                     
             while (tiedostonlukija.hasNextLine()) {
                 String rivi = tiedostonlukija.nextLine();
-                if(!rivi.isEmpty()) {
+                if (!rivi.isEmpty()) {
                     opetusmateriaali += rivi;
                 }
             }
         } catch (Exception e) {
             System.out.println("Virhe: " + e.getMessage());
         }
-        pituus = pituus*6;
+        pituus = pituus * 6;
         Generaattori gen = new Generaattori(aste);
         gen.lueOpetusmateriaali(opetusmateriaali);
-        byte[] bytet= gen.muodostaSekvenssi(pituus, (byte) 27);
+        byte[] bytet = gen.muodostaSekvenssi(pituus, (byte) 27);
         Tekstinkasittelija kasittelija = new Tekstinkasittelija();
         String tiedosto = kasittelija.muunnaByteistaTekstiksiBach(bytet);
         return tiedosto;

@@ -53,7 +53,7 @@ public class Trie {
         return true;
     }
     /**
-     * Hakee opetusmateriaalissa esiintyvät seuraajat hakuavaimelle
+     * Hakee opetusmateriaalissa esiintyvät seuraajat hakuavaimelle.
      * @param hakuavain
      * @return seuraajat
      */
@@ -71,7 +71,7 @@ public class Trie {
     }
     
     /**
-     * Lisää listalla olevat alkiot Triehen markovin asteen mukaisesti
+     * Lisää listalla olevat alkiot Triehen markovin asteen mukaisesti.
      * @param aanet
      * @param aste 
      */
@@ -104,7 +104,7 @@ public class Trie {
     }
     
     /**
-     * lisaa Triehen uuden solmun tai päivittää laskurin, jos solmu löytyy
+     * lisaa Triehen uuden solmun tai päivittää laskurin, jos solmu löytyy.
      * @param juuri solmu, jonka perään uusi solmu lisätään tai jonka lasta päivitetään
      * @param aani, jota ollaan lisäämässä
      */
