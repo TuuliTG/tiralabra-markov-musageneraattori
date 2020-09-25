@@ -36,7 +36,7 @@ public class Tekstinkasittelija {
         Taulukkolista<Byte> bytet = new Taulukkolista<>();
         for (int i = 0; i < palat.length; i++) {
             byte aani = muunnaStringistaByteksi(palat[i]);
-            System.out.println(palat[i]);
+            //System.out.println(palat[i]);
             bytet.lisaa(aani);
         }
         return bytet;
@@ -70,7 +70,7 @@ public class Tekstinkasittelija {
      */
     private String muunnaBytestaMerkiksi(byte tunnus) {
         int oktaaviala = 0;
-        System.out.println("tunnus "  + tunnus);
+        //System.out.println("tunnus "  + tunnus);
         if (tunnus > 16 ) {
             while(tunnus > 16) {
                 tunnus -= 17;

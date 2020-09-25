@@ -12,6 +12,7 @@ public class Taulukkolista<T> {
     private int maksimiKoko;
 
     public Taulukkolista() {
+        
         this.taulukkolista = new Object[10];
         this.koko = 0;
         this.maksimiKoko = 10;
@@ -48,8 +49,9 @@ public class Taulukkolista<T> {
     }
     
     public void lisaaMonta(T[] array) {
+        
         for (int i = 0; i < array.length; i++) {
-            this.lisaa(array[i]);
+            this.lisaa((T) array[i]);
         }
     }
     

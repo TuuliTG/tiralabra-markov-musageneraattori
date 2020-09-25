@@ -27,10 +27,16 @@ public class Kayttoliittyma {
     public Kayttoliittyma() {
         this.lukija = new Scanner(System.in);
     }
+
+    public Kayttoliittyma(Scanner lukija) {
+        this.lukija = lukija;
+    }
     
-    public void kaynnista(String[] args) {
+    
+    
+    public void kaynnista() {
        
-        tervetuloa();
+        valikko1();
         
         String valinta = lukija.nextLine();
         valinta = valinta.trim();
@@ -39,52 +45,91 @@ public class Kayttoliittyma {
             
         } else if (valinta.equals("2")) {
             ajaSuorituskykytestit();
+        } else if (valinta.equals("L")) {
+            return;
         }
     }
     
     private void valikko2() {
-        System.out.println("Valitse opetusmateriaali:");
-        System.out.println("1. Bach viulusonaatti g-molli osa Presto");
-        System.out.println("2. Lastenlaulupotpuri");
-        int kappale = lukija.nextInt();
         
-        System.out.println("Millä asteella haluat käyttää generaattoria? (1 - 6) ");
-        int aste = lukija.nextInt();
-        System.out.println("Generoidun kappaleen pituus tahteina:");
-        int pituus = lukija.nextInt();
-        System.out.println("Mihin kansioon talletetaan?");
-        String polku = lukija.next();
-        if(polku.isEmpty()) {
-            System.out.println("ei polkua"); 
+        //valikko:
+        System.out.println("Valitse opetusmateriaali:");
+        System.out.println("[1] Bach viulusonaatti g-molli osa Presto");
+        System.out.println("[2] Lastenlaulupotpuri");
+        
+        String valinta = lukija.nextLine();
+        if(valinta.equals("L")) {
             return;
         }
-        String generoituKappale = generoiMusiikkia(kappale, aste, pituus);
+        int kappale = Integer.parseInt(valinta);
+        int aste = 0;
+        while (aste < 1 || aste > 6) {
+            System.out.println("Millä asteella haluat käyttää generaattoria? (1 - 6) ");
+            valinta = lukija.nextLine();
+            if(valinta.equals("L")) {
+                return;
+            }
+            aste = Integer.parseInt(valinta);
+        }
         
+        int pituus = 0;
+        while (pituus < 1) {
+            System.out.println("Generoidun kappaleen pituus tahteina:");
+            valinta = lukija.nextLine();
+            if(valinta.equals("L")) {
+                return;
+            }
+            pituus = Integer.parseInt(valinta);
+        }
+        
+        System.out.println("Mihin kansioon talletetaan?");
+        String polku = lukija.nextLine();
+        if(polku.equals("L")) {
+            return;
+        }
+        if(polku.isEmpty()) {
+            System.out.println("Et syöttänyt polkua."); 
+            System.out.println("----------------------");
+            valikko2();
+        }
+        String generoituKappale = "";
+        if(kappale == 1) {
+            generoituKappale = generoiMusiikkiaBachinTyyliin(aste, pituus);
+        } else if (kappale == 2) {
+            System.out.println("ei vielä valmista");
+        } else {
+            System.out.println("numero ei kelpaa");
+        }
         polku += "/bach.ly";
         File file = new File(polku);
-        
+
         try {
-           FileWriter writer = new FileWriter(file);
-           writer.write(generoituKappale);
-           writer.close();
+           FileWriter kirjoittaja = new FileWriter(file);
+           kirjoittaja.write(generoituKappale);
+           kirjoittaja.close();
         } catch (Exception e) {
-            System.out.println("Virhe" + e.getMessage());
+            System.out.println("Virhe " + e.getMessage());
+            valikko2();
         }
+        
+        return;
+        
     }
     
-    private void tervetuloa() {
+    private void valikko1() {
         System.out.println("TERVETULOA MUSAGENERAATTORIIN!");
         System.out.println("--------------------------------");
         System.out.println("Valitse seuraavista:");
         System.out.println("1. Generoi musiikkia");
         System.out.println("2. Aja suorituskykytestit");
+        System.out.println("[L] lopeta");
     }
     
     private void ajaSuorituskykytestit() {
         System.out.println("testit");
     }
     
-    private String generoiMusiikkia(int kappale, int aste, int pituus) {
+    private String generoiMusiikkiaBachinTyyliin(int aste, int pituus) {
         String opetusmateriaali = "";
         try (Scanner tiedostonlukija = 
                 new Scanner(Paths.get("opetusmateriaali/Bach.ly"))) {
@@ -95,8 +140,6 @@ public class Kayttoliittyma {
                     opetusmateriaali += rivi;
                 }
             }
-            
-        
         } catch (Exception e) {
             System.out.println("Virhe: " + e.getMessage());
         }

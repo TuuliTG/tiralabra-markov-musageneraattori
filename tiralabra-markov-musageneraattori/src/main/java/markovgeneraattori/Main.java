@@ -14,13 +14,15 @@ import UI.Kayttoliittyma;
  */
 public class Main {
 
+    
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
      
         Kayttoliittyma k = new Kayttoliittyma();
-        k.kaynnista(args);
+        k.kaynnista();
         
         
     }

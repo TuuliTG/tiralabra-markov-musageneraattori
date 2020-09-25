@@ -1,26 +1,32 @@
+/**
+ * 
+ */
+
 
 package markovgeneraattori.tietorakenteet;
 
 /**
- * Trie tietorakenne, joka tallettaa syötteenä saadut byte-tyyppiset alkiot niin, 
+ * Trie tallettaa syötteenä saadut byte-tyyppiset alkiot niin, 
  * että sitä voi käyttää Markovin ketjun luomiseen.
  
- * @author tgtuuli
+ * @author Tuuli Toivanen-Gripentrog
  */
-
 public class Trie {
     
     private TrieSolmu juuri;
-    private int maksimiAste;
+    private int aste;
 
     public Trie(int maksimiaste) {
         juuri = new TrieSolmu();
-        this.maksimiAste = maksimiaste;
+        this.aste = maksimiaste;
     }
-    
+    /**
+     * 
+     * @param aanet 
+     */
     public void lisaa(Taulukkolista<Byte> aanet) {
-        if (aanet.koko() > maksimiAste) {
-            this.lisaaTriehen(aanet, maksimiAste);
+        if (aanet.koko() > aste) {
+            this.lisaaTriehen(aanet, aste);
         } else {
             this.lisaaTriehen(aanet, aanet.koko());
         }
@@ -47,9 +53,9 @@ public class Trie {
         return true;
     }
     /**
-     * 
+     * Hakee opetusmateriaalissa esiintyvät seuraajat hakuavaimelle
      * @param hakuavain
-     * @return 
+     * @return seuraajat
      */
     public Taulukkolista<TrieSolmu> getSeuraajat(byte[] hakuavain){
         TrieSolmu nykyinen = juuri;
@@ -65,12 +71,12 @@ public class Trie {
     }
     
     /**
-     * 
+     * Lisää listalla olevat alkiot Triehen markovin asteen mukaisesti
      * @param aanet
      * @param aste 
      */
     private void lisaaTriehen(Taulukkolista<Byte> aanet, int aste){
-       
+       //Aloitetaan lisääminen Trien juuresta
         TrieSolmu nykyinen = juuri;
         if (aanet.koko() == 1) {
             this.lisaaUusiTaiPaivita(juuri, aanet.get(0));
@@ -81,26 +87,24 @@ public class Trie {
                         this.lisaaUusiTaiPaivita(nykyinen, aani);
                         nykyinen = nykyinen.getLapset()[aani + 128];
                     }
-                    System.out.println("---------");
+                    //System.out.println("---------");
                     nykyinen = juuri;
                 }
             }
-        if (aste > 1 && aanet.koko() > 1) {
-            byte[] loput = new byte[aste];
-            Taulukkolista loput2 = new Taulukkolista();
-            
-            //System.arraycopy(aanet, aanet.koko() - aste, loput, 0, aste);
-            for (int i = 0; i < loput.length; i++) {
-                loput2.lisaa(loput[i]);
+        if (aste > 1 && aanet.koko() > 1) { //lisätään Triehen taulukosta loput pienemmällä asteella, jotta triestä voidaan hakea esim. 2 viimeistä
+            Taulukkolista loput = new Taulukkolista(); //tehdään oma taulukko lopuista alkioista
+            for (int i = aanet.koko() - aste; i < aanet.koko(); i++) {
+                loput.lisaa(aanet.get(i));
             }
-            if (loput.length > 1) {
-                lisaaTriehen(loput2, aste - 1);
+            
+            if (loput.koko() > 1) { //lisää kunnes jäljellä 2. Opetusnäytteen viimeistä alkiota ei voi hakea yksinään.
+                lisaaTriehen(loput, aste - 1);
             }
         }
     }
     
     /**
-     * 
+     * lisaa Triehen uuden solmun tai päivittää laskurin, jos solmu löytyy
      * @param juuri solmu, jonka perään uusi solmu lisätään tai jonka lasta päivitetään
      * @param aani, jota ollaan lisäämässä
      */
@@ -112,12 +116,12 @@ public class Trie {
             TrieSolmu lisattava = new TrieSolmu(tunnus);
             juuri.getLapset()[aani] = lisattava;
             juuri.getSeuraajat().lisaa(lisattava);
-            System.out.println("lisätään " + tunnus);
+            //System.out.println("lisätään " + tunnus);
         }  else {
 
             TrieSolmu paivitettava = juuri.getLapset()[aani];
             paivitettava.lisaaLaskuriin();
-            System.out.println("päivitetään " + paivitettava.getTunnus());
+            //System.out.println("päivitetään " + paivitettava.getTunnus());
             juuri.getLapset()[aani] = paivitettava;
         }
     }

@@ -5,13 +5,12 @@
  */
 package markovgeneraattori.generaattori;
 
-import java.util.Random;
 import markovgeneraattori.tietorakenteet.Taulukkolista;
 import markovgeneraattori.tietorakenteet.Trie;
 import markovgeneraattori.tietorakenteet.TrieSolmu;
 
 /**
- * Generaattorin tehtävänä on tuottaa uusi sekvenssi annetun syötteen perusteella.
+ * Generaattori tuottaa uuden sekvenssin annettuun opetusmateriaaliin perustuen.
  * 
  * @author tgtuuli
  */
@@ -28,7 +27,10 @@ public class Generaattori {
         t = new Tekstinkasittelija();
         
     }
-    
+    /**
+     * 
+     * @param opetusmateriaali 
+     */
     public void lueOpetusmateriaali(String opetusmateriaali) {
         Taulukkolista<Byte> aanet = t.muunnaKappaleTekstistaByteiksi(opetusmateriaali);
         trie.lisaa(aanet);
@@ -38,7 +40,6 @@ public class Generaattori {
      * 
      * @param pituus sekvenssin pituus
      * @param alkusavel mistä kappale halutaan aloittaa
-     * @param aste kertoo, millä Markovin ketjun asteella hakuavaimia voi käyttää (esim. 3).
      * @return taulukko eli valmis sekvenssi
      */
     public byte[] muodostaSekvenssi(int pituus, byte alkusavel){
@@ -49,19 +50,19 @@ public class Generaattori {
         taulukko[0] = alkusavel;
         
         //Ensimmäiset täytyy hakea erikseen, ennen kuin sekvenssin pituus on asteluvun pituinen
-        System.out.println("haetaan ensimmäiset");
+        //System.out.println("haetaan ensimmäiset");
         int indeksi = 0;
         while (indeksi < aste - 1) {
             byte seuraava = haeSeuraava(taulukko, 0, indeksi);
-            System.out.println("seuraava " + seuraava);
+            //System.out.println("seuraava " + seuraava);
             taulukko[indeksi + 1] = seuraava;
             indeksi++;
         }
         //Tästä eteenpäin generoidaan sekvenssiä asteluvun pituisen hakusanan perusteella
-        System.out.println("haetaan seuraavat");
+        //System.out.println("haetaan seuraavat");
         for (int i = 0; i < pituus - aste; i++) {
             byte seuraava = haeSeuraava(taulukko, i, i + aste - 1);
-            System.out.println("seuraava " + seuraava);
+            //System.out.println("seuraava " + seuraava);
             taulukko[i + aste] = seuraava;
         }
         return taulukko;
@@ -110,7 +111,7 @@ public class Generaattori {
             
         }
             
-        System.out.println("");
+        //System.out.println("");
         //Arvotaan seuraava
         TrieSolmu seuraava = this.getSatunnainen(kokonaissumma, lapset);
         return seuraava.getTunnus();
@@ -127,13 +128,11 @@ public class Generaattori {
     private TrieSolmu getSatunnainen(int kokonaissumma, Taulukkolista<TrieSolmu> solmut) {
         //Muuta tämä omaksi toteutukseksi
         
-        System.out.println("haetaan satunnainen");
-        System.out.println("kokonaissumma " + kokonaissumma);
-        Random rand = new Random();
+        //System.out.println("haetaan satunnainen");
+        //System.out.println("kokonaissumma " + kokonaissumma);
         //arvottu kokonaisluku 
-        int indeksi = 1 + rand.nextInt(kokonaissumma);
         int indeksi2 = 1 + this.satunnainen(kokonaissumma);
-        System.out.println("uusi satunnainen : " + indeksi2);
+        //System.out.println("uusi satunnainen : " + indeksi2);
         int summa = 0;
         int i = 0;
         //etsitään arvottua lukua vastaava alkio
