@@ -5,3 +5,8 @@
 * [Viikkoraportti 1](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/dokumentaatio/viikkoraportti1.md)
 * [Viikkoraportti 2](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/dokumentaatio/Viikkoraportti2.md)
 * [Viikkoraportti 3](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/dokumentaatio/Viikkoraportti3.md)
+
+## Testaus
+* [Testausdokumentti](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/dokumentaatio/Testausdokumentti.md) 
+## Toteutus
+* [Toteutusdokumentti](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/dokumentaatio/Toteutusdokumentti.md)
