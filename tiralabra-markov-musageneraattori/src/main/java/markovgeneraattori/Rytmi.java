@@ -6,7 +6,7 @@
 package markovgeneraattori;
 
 /**
- *
+ * Huom! Tämä luokka on toistaiseksi käyttämättömänä ja turha.
  * @author tgtuuli
  */
 public class Rytmi {

@@ -11,7 +11,7 @@ import java.util.Random;
 import javax.naming.CannotProceedException;
 
 /**
- * Tämä luokka on vielä hyvin vaiheessa. 
+ * Huom! Tämä luokka on toistaiseksi käyttämättömänä ja turha.
  * On epävarmaa, kannattaako rytmiä edes käsitellä Markovin ketjun tai trien avulla tässä yhteydessä. 
  * En siis aio siistiä tätä luokkaa ainakaan hetkeen.
  * @author tgtuuli
