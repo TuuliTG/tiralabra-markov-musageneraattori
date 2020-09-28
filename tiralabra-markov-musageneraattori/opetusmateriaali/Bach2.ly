@@ -85,7 +85,7 @@ fis d h d g, h d fis e c a c fis, a c8
 c16 h c a h8 h, e16 e' h g e h g h 
 e,8 e' g b cis,8 r r16 g'' f e 
 
-d8 d, f aes h, r r16 f'' e d 
+d8 d, f as h, r r16 f'' e d 
 c8 c, e fis a, r r16 e'' dis cis 
 h8 h, d f gis, r r16 d'' c h 
 c8 a gis e a16 e a c h e, h' d 
