@@ -16,7 +16,7 @@
 ## Testaus
 * [Testausdokumentti](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/dokumentaatio/Testausdokumentti.md
 )
-*  [Kuvat JaCoCo-raportista ja suorituskykytesteistä](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/tree/master/tiralabra-markov-musageneraattori/kuvaJaTestitulokset)
+*  [Kuvat JaCoCo-raportista ja suorituskykytesteistä](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/tree/master/tiralabra-markov-musageneraattori/kuvatJaTestitulokset)
 
 ## Toteutus
 * [Toteutusdokumentti](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/dokumentaatio/Toteutusdokumentti.md)
