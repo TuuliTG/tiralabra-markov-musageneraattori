@@ -17,14 +17,20 @@ import markovgeneraattori.tietorakenteet.TrieSolmu;
 public class Generaattori {
     
     
-    private Trie trie;
-    private Tekstinkasittelija t;
+    private Trie savelTrie;
+    private Trie rytmiTrie;
+    private Tekstinkasittelija tekstinkasittelija;
     private int aste;
+    private Taulukkolista<Byte> rytmi = new Taulukkolista<>();
+    private RytmiGeneraattori rytmigeneraattori;
+    private int pituusTahteina;
 
-    public Generaattori(int aste) {
+    public Generaattori(int aste, int tahtilajiOsoittaja, int tahtilajiNimittaja, int pituusTahteina) {
         this.aste = aste;
-        this.trie = new Trie(aste);
-        t = new Tekstinkasittelija();
+        this.savelTrie = new Trie(aste);
+        this.rytmiTrie = new Trie(aste);
+        this.tekstinkasittelija = new Tekstinkasittelija();
+        this.rytmigeneraattori =  new RytmiGeneraattori(aste, tahtilajiOsoittaja, tahtilajiNimittaja, pituusTahteina);
         
     }
     /**
@@ -32,15 +38,22 @@ public class Generaattori {
      * @param opetusmateriaali .ly-tiedostomuodossa
      */
     public void lueOpetusmateriaali(String opetusmateriaali) {
-        Taulukkolista<Byte> aanet = t.muunnaKappaleTekstistaByteiksi(opetusmateriaali);
-        Taulukkolista<Integer> rytmi = t.getRytmi();
+        Taulukkolista<Byte> aanet = tekstinkasittelija.muunnaKappaleTekstistaByteiksi(opetusmateriaali);
+        rytmi = tekstinkasittelija.getRytmi();
+        rytmigeneraattori.lisaaTriehenRytmit(rytmi);
+        this.rytmiTrie = rytmigeneraattori.getTrie();
         /*
         for (int i = 0; i < rytmi.koko(); i++) {
             System.out.print(rytmi.get(i) + " : ");
         }
         */
-        trie.lisaa(aanet);
-        
+        savelTrie.lisaa(aanet);
+         
+    }
+    
+    public Taulukkolista<Byte> generoiRytmi() {
+        rytmigeneraattori.generoiRytmi();
+        return rytmigeneraattori.getMuodostettuRytmi();
     }
     /**
      * 
@@ -48,7 +61,7 @@ public class Generaattori {
      * @param alkusavel mistä kappale halutaan aloittaa
      * @return taulukko eli valmis sekvenssi
      */
-    public byte[] muodostaSekvenssi(int pituus, byte alkusavel){
+    public byte[] muodostaSekvenssi(int pituus, Trie trie, byte alkusavel){
         
         //Taulukko, johon sekvenssi tallennetaan
         byte[] taulukko = new byte[pituus];
@@ -59,7 +72,7 @@ public class Generaattori {
         //System.out.println("haetaan ensimmäiset");
         int indeksi = 0;
         while (indeksi < aste - 1) {
-            byte seuraava = haeSeuraava(taulukko, 0, indeksi);
+            byte seuraava = haeSeuraava(taulukko, trie, 0, indeksi);
             //System.out.println("seuraava " + seuraava);
             taulukko[indeksi + 1] = seuraava;
             indeksi++;
@@ -67,7 +80,7 @@ public class Generaattori {
         //Tästä eteenpäin generoidaan sekvenssiä asteluvun pituisen hakusanan perusteella
         //System.out.println("haetaan seuraavat");
         for (int i = 0; i < pituus - aste; i++) {
-            byte seuraava = haeSeuraava(taulukko, i, i + aste - 1);
+            byte seuraava = haeSeuraava(taulukko, trie, i, i + aste - 1);
             //System.out.println("seuraava " + seuraava);
             taulukko[i + aste] = seuraava;
         }
@@ -81,7 +94,7 @@ public class Generaattori {
      * @param mihin mihin taulukon kohtaan avain loppuu
      * @return seuraava sekvenssiin tuleva alkio byte-muodossa
      */
-    private byte haeSeuraava(byte[] hakuavain, int mista, int mihin){
+    private byte haeSeuraava(byte[] hakuavain, Trie trie, int mista, int mihin){
         //luodaan hakuavainta varten int-muotoinen taulukko
         byte[] avain = new byte[mihin + 1 - mista];
         System.arraycopy(hakuavain, mista, avain, 0, (mihin + 1 - mista));
@@ -132,17 +145,15 @@ public class Generaattori {
      * @return seuraavaksi tuleva solmu
      */
     private TrieSolmu getSatunnainen(int kokonaissumma, Taulukkolista<TrieSolmu> solmut) {
-        //Muuta tämä omaksi toteutukseksi
         
-        //System.out.println("haetaan satunnainen");
-        //System.out.println("kokonaissumma " + kokonaissumma);
+        
         //arvottu kokonaisluku 
-        int indeksi2 = 1 + this.satunnainen(kokonaissumma);
+        int indeksi = 1 + this.satunnainen(kokonaissumma);
         //System.out.println("uusi satunnainen : " + indeksi2);
         int summa = 0;
         int i = 0;
         //etsitään arvottua lukua vastaava alkio
-        while (summa < indeksi2) {
+        while (summa < indeksi) {
             summa += solmut.get(i).getLaskuri();
             i++;
         }
@@ -152,4 +163,14 @@ public class Generaattori {
     private int satunnainen(int arvo){
         return (int) (System.nanoTime() % arvo);
     }
+
+    public Trie getSavelTrie() {
+        return savelTrie;
+    }
+
+    public Trie getRytmiTrie() {
+        return rytmiTrie;
+    }
+    
+    
 }

@@ -14,8 +14,9 @@ import markovgeneraattori.tietorakenteet.Taulukkolista;
 public class Tekstinkasittelija {
     
     private String[] aanetMerkkijonoina;
-    private Taulukkolista<Integer> rytmi;
-    private int viimeisinRytmi;
+    private Taulukkolista<Byte> rytmi;
+    private byte viimeisinRytmi;
+    Rytmi rytminkasittelija = new Rytmi();
 
     public Tekstinkasittelija() {
         this.aanetMerkkijonoina = new String[] {"c", "cis", "des",  "d", "dis", "es", "e", "f", 
@@ -64,6 +65,28 @@ public class Tekstinkasittelija {
         
         return s;
         
+    }
+    
+    public String muunnaByteistaTekstiksiLastenLaulu(byte[] bytet, Taulukkolista<Byte> rytmi) {
+        String s = "\\version \"2.20.0\"\n\\language \"suomi\"\n"
+                + "\\score {\n{ \\key c \\major \\time 4/4 \n";
+        for (int i = 0; i < bytet.length; i++) {
+            byte b = bytet[i];
+            byte r = rytmi.get(i);
+            System.out.print("rytmi: ");
+            System.out.print(r + " ");
+            if(r < 0) {
+                r *= -1;
+                s = s + "r" + rytminkasittelija.muunnaBytestaMerkiksi(r) + " ";
+            } else {
+                s = s + this.muunnaBytestaMerkiksi(b) + rytminkasittelija.muunnaBytestaMerkiksi(r) + " ";
+            }
+            
+        }
+        
+        s = s + "}\n\\layout {} \n \\midi {\\tempo 4 = 70} \n}";
+        
+        return s;
     }
     
     
@@ -138,7 +161,7 @@ public class Tekstinkasittelija {
             } else if (savel.charAt(i) == '3') {
                 viimeisinRytmi = 32;
             } else if (savel.charAt(i) == '.') {
-                viimeisinRytmi = (int) (viimeisinRytmi * 1.5);
+                viimeisinRytmi = (byte) (viimeisinRytmi * 1.5);
             }
         }
         if (palat[0].equals("r")) {
@@ -154,7 +177,7 @@ public class Tekstinkasittelija {
         return -128;
     }
 
-    public Taulukkolista<Integer> getRytmi() {
+    public Taulukkolista<Byte> getRytmi() {
         return rytmi;
     }
     
