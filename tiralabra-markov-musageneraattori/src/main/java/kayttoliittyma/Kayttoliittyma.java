@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import markovgeneraattori.Suorituskykytestit;
 import markovgeneraattori.generaattori.Generaattori;
+import markovgeneraattori.generaattori.RytmiGeneraattori;
 import markovgeneraattori.generaattori.Tekstinkasittelija;
 import markovgeneraattori.tietorakenteet.Taulukkolista;
 import markovgeneraattori.tietorakenteet.Trie;
@@ -51,12 +52,21 @@ public class Kayttoliittyma {
         }
     }
     
+    private void valikko1() {
+        System.out.println("TERVETULOA MUSAGENERAATTORIIN!");
+        System.out.println("--------------------------------");
+        System.out.println("Valitse seuraavista:");
+        System.out.println("1. Generoi musiikkia");
+        System.out.println("2. Aja suorituskykytestit");
+        System.out.println("[L] lopeta");
+    }
+    
     private void valikko2() {
         
-        //valikko:
+        
         System.out.println("Valitse opetusmateriaali:");
         System.out.println("[1] Bach viulusonaatti g-molli osa Presto");
-        //System.out.println("[2] Lastenlaulupotpuri");
+        System.out.println("[2] Lastenlaulupotpuri");
         //TÄHÄN TARVITAAN VIELÄ VALIDOINTI
         String valinta = lukija.nextLine();
         if (valinta.equals("L")) {
@@ -96,12 +106,14 @@ public class Kayttoliittyma {
         String generoituKappale = "";
         if (kappale == 1) {
             generoituKappale = generoiMusiikkiaBachinTyyliin(aste, pituus);
+            polku += "/bach.ly";
         } else if (kappale == 2) {
-            System.out.println("ei vielä toista kappaletta");
+            generoituKappale = generoiMusiikkiaLastenlaulunTyyliin(aste, pituus);
+            polku += "/laulu.ly";
         } else {
             System.out.println("numero ei kelpaa");
         }
-        polku += "/bach.ly";
+        
         File file = new File(polku);
 
         try {
@@ -117,14 +129,7 @@ public class Kayttoliittyma {
         
     }
     
-    private void valikko1() {
-        System.out.println("TERVETULOA MUSAGENERAATTORIIN!");
-        System.out.println("--------------------------------");
-        System.out.println("Valitse seuraavista:");
-        System.out.println("1. Generoi musiikkia");
-        System.out.println("2. Aja suorituskykytestit");
-        System.out.println("[L] lopeta");
-    }
+    
     
     private void ajaSuorituskykytestit() {
         System.out.println("Millä asteella suoritetaan? [1-8]"); // TEE TÄHÄN VIELÄ SYÖTTEEN VALIDOINTI
@@ -133,28 +138,66 @@ public class Kayttoliittyma {
         testit.suorita(aste);
         
     }
-    
+    /**
+     * 
+     * @param aste
+     * @param pituus
+     * @return 
+     */
     private String generoiMusiikkiaBachinTyyliin(int aste, int pituus) {
-        String opetusmateriaali = "";
+        String opetusmateriaali = this.lueTiedosto("Bach.ly");
+        
+        Generaattori gen = new Generaattori(aste, 3, 8, pituus);
+        gen.lueOpetusmateriaali(opetusmateriaali);
+        pituus = pituus * 6;
+        byte[] bytet = gen.muodostaSekvenssi(pituus, gen.getSavelTrie(), (byte) 27);
+        Tekstinkasittelija kasittelija = new Tekstinkasittelija();
+        String tiedosto = kasittelija.muunnaByteistaTekstiksiBach(bytet);
+        return tiedosto;
+        
+    }
+    /**
+     * 
+     * @param aste
+     * @param pituus
+     * @return 
+     */
+    private String generoiMusiikkiaLastenlaulunTyyliin(int aste, int pituus) {
+        String opetusmateriaali = this.lueTiedosto("Ukko-Nooa.ly");
+        
+        Generaattori gen = new Generaattori(aste, 4, 4, pituus);
+        gen.lueOpetusmateriaali(opetusmateriaali);
+        opetusmateriaali = this.lueTiedosto("morkolahtipiiriin.ly");
+        gen.lueOpetusmateriaali(opetusmateriaali);
+        opetusmateriaali = this.lueTiedosto("nallepuh.ly");
+        gen.lueOpetusmateriaali(opetusmateriaali);
+        opetusmateriaali = this.lueTiedosto("pieniveturi.ly");
+        gen.lueOpetusmateriaali(opetusmateriaali);
+        opetusmateriaali = this.lueTiedosto("vihreavalo.ly");
+        gen.lueOpetusmateriaali(opetusmateriaali);
+        
+        
+        Taulukkolista<Byte> rytmi = gen.generoiRytmi();
+        byte[] bytet = gen.muodostaSekvenssi(rytmi.koko(), gen.getSavelTrie(), (byte) 0);
+        Tekstinkasittelija kasittelija = new Tekstinkasittelija();
+        String tiedosto = kasittelija.muunnaByteistaTekstiksiLastenLaulu(bytet, rytmi);
+        return tiedosto;
+    }
+    
+    private String lueTiedosto(String tiedostonNimi) {
+        String tiedostonSisalto = "";
         try (Scanner tiedostonlukija = 
-                new Scanner(Paths.get("opetusmateriaali/Bach.ly"))) {
+                new Scanner(Paths.get("opetusmateriaali/" + tiedostonNimi))) {
                     
             while (tiedostonlukija.hasNextLine()) {
                 String rivi = tiedostonlukija.nextLine();
                 if (!rivi.isEmpty()) {
-                    opetusmateriaali += rivi;
+                    tiedostonSisalto += rivi;
                 }
             }
         } catch (Exception e) {
             System.out.println("Virhe: " + e.getMessage());
         }
-        pituus = pituus * 6;
-        Generaattori gen = new Generaattori(aste);
-        gen.lueOpetusmateriaali(opetusmateriaali);
-        byte[] bytet = gen.muodostaSekvenssi(pituus, (byte) 27);
-        Tekstinkasittelija kasittelija = new Tekstinkasittelija();
-        String tiedosto = kasittelija.muunnaByteistaTekstiksiBach(bytet);
-        return tiedosto;
-        
+        return tiedostonSisalto;
     }
 }
