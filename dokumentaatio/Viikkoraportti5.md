@@ -3,9 +3,11 @@
 ## Mitä olen tehnyt tällä viikolla?
 * Valmius rytmin generoimiseen
 * Rytmigeneraattori-luokka
+* Kommentointia
 
 ## Miten ohjelma on edistynyt?
-Rytmit
+Rytmien generoiminen onnistuu, mutta viilattavaa olisi paljon, jos rytmistä haluaisi luonnollisen ja uskottavan. Täytyy katsoa, paljonko tämän kurssin puitteissa on vielä aikaa eri toiminnallisuuksien rakentamiseen / kokeiluun. 
+Uusien ominaisuuksien myötä täytyi siivotaja korjata taas muita luokkia ja testejä. 
 
 ## Mitä opin tällä viikolla?
 

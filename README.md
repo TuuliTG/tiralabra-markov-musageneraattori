@@ -1,4 +1,6 @@
-# tiralabra-markov-musageneraattori
+# Markov Musageneraattori
+
+Tietorakenteet ja algoritmit -kurssin projektityö. Ohjelma tuottaa musiikkia opetusmateriaaliin perustuen. 
 
 ## [Käyttöohje](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/dokumentaatio/Kayttoohje.md)
 
