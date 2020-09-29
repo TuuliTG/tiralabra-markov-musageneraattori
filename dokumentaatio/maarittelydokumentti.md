@@ -2,7 +2,7 @@
 ### Opinto-ohjelma: Tietojenkäsittelytieteen kandidaatti
 ### Kieli: Suomi
 ## Aihe:
-Projektin tarkoituksena on luoda musiikkiohjelma, joka tuottaa opetusmateriaaliin pohjautuvaa uutta musiikkia. Projektissa käytetään Markovin ketjua eli ohjelma tutkii n edeltävää merkkiä ja päättää todennäköisyyksiin pohjautuen seuraavan merkin. Nuotinnukseen käytetään LilyPond-ohjelmaa ja -nuotinnusmenetelmää. LilyPondin avulla on mahdollista käsitellä nuotteja tekstimuodossa ja muuntaa nuotit nuottiviivastolle(pdf) tai ääneksi (midi).
+Projektin tarkoituksena on luoda musiikkiohjelma, joka tuottaa opetusmateriaaliin pohjautuvaa uutta musiikkia. Projektissa käytetään Markovin ketjua eli ohjelma tutkii n edeltävää merkkiä ja päättää todennäköisyyksiin pohjautuen seuraavan merkin. Nuotinnukseen käytetään LilyPond-ohjelmaa ja -nuotinnusmenetelmää. LilyPondin avulla on mahdollista käsitellä nuotteja tekstimuodossa ja muuntaa nuotit nuottiviivastolle(pdf) tai ääneksi (midi). 
 ## Syöte
 Musiikki on nuotinnettu ASCII-muotoisena tekstinä. Tekstitiedosto täytyy parsia ennen ohjelmaan syöttämistä erillisiksi merkeiksi. 
 Tekstimuotoisessa nuotissa on määritelty mm. sävelkorkeus, nuotin pituus, mahdolliset tauot ja oktaavialat. Lisäksi monenlaisia kaaria ja musiikillisia merkkejä voi olla mukana. Näistä oleellisia tässä projektissa on sävelkorkeudet ja rytmit. Merkit muunnetaan ennen käsittelyä byte-muotoon. 
@@ -15,7 +15,7 @@ Tekstimuotoisessa nuotissa on määritelty mm. sävelkorkeus, nuotin pituus, mah
  * jne.
 * Trie 
  * Mahdollistaa merkkien tallentamisen ja etsimisen tehokkaasti
- * Haun ja lisäyksen aikavaativuus on O(m), missä m on haettavan/lisättävän merkkijonon pituus. Trien huono puoli on suuri tilavaativuus, mutta tässä tapauksessa eri merkkijonoja on sen verran rajoitettu määrä (käytettäessä esim. byte-tyyppiä mahdolliset arvot ovat välillä -128 ... 127), että tällä ei liene välilä.
+ * Haun ja lisäyksen aikavaativuus on O(m), missä m on haettavan/lisättävän merkkijonon pituus. Trien huono puoli on suuri tilavaativuus, mutta tässä tapauksessa eri merkkijonoja on sen verran rajoitettu määrä (käytettäessä esim. byte-tyyppiä mahdolliset arvot ovat välillä -128 ... 127), että tällä ei liene väliä.
  * Lista
  	* Trien solmulle talletetaan seuraajat listaan
 

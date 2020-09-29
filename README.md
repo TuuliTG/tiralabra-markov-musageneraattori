@@ -9,9 +9,7 @@
 * [Viikkoraportti 2](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/dokumentaatio/Viikkoraportti2.md)
 * [Viikkoraportti 3](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/dokumentaatio/Viikkoraportti3.md)
 * [Viikkoraportti 4](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/dokumentaatio/Viikkoraportti4.md)
-
-## Huom! 
-* Luokat RytmiGeneraattori ja Rytmi eivät ole ohjelman käytössä tällä hetkellä. 
+ 
 
 ## Testaus
 * [Testausdokumentti](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/dokumentaatio/Testausdokumentti.md
