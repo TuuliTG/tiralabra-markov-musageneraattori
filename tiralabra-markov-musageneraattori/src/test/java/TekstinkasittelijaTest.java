@@ -8,7 +8,6 @@ import markovgeneraattori.generaattori.Tekstinkasittelija;
 import markovgeneraattori.tietorakenteet.Taulukkolista;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Before;
 
 /**
  *
@@ -16,14 +15,9 @@ import org.junit.Before;
  */
 public class TekstinkasittelijaTest {
     
-    private Tekstinkasittelija kasittelija;
+    private Tekstinkasittelija kasittelija = new Tekstinkasittelija();
     
-    @Before
-    public void alustus() {
-        this.kasittelija = new Tekstinkasittelija();
-        
-    }
-    
+   
     @Test
     public void muunnaTekstistaByteiksiEiRytmiaYksiOktaavialaTest(){
         String t = "\\version \"2.20.0\"\n" +
@@ -87,7 +81,7 @@ public class TekstinkasittelijaTest {
             "  c'4 e''4 g8 e'8 d,,8 d'8\n" +
             "}";
         kasittelija.muunnaKappaleTekstistaByteiksi(t);
-        Taulukkolista<Integer> rytmit = kasittelija.getRytmi();
+        Taulukkolista<Byte> rytmit = kasittelija.getRytmi();
         int[] r = new int[rytmit.koko()];
         for (int i = 0; i < rytmit.koko(); i++) {
             r[i] = rytmit.get(i);
@@ -105,7 +99,7 @@ public class TekstinkasittelijaTest {
             "  c'4 e'' g8 e'16 d,, d'\n" +
             "}";
         kasittelija.muunnaKappaleTekstistaByteiksi(t);
-        Taulukkolista<Integer> rytmit = kasittelija.getRytmi();
+        Taulukkolista<Byte> rytmit = kasittelija.getRytmi();
         int[] r = new int[rytmit.koko()];
         for (int i = 0; i < rytmit.koko(); i++) {
             r[i] = rytmit.get(i);
