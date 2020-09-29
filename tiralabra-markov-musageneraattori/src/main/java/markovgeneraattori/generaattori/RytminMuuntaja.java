@@ -6,10 +6,10 @@
 package markovgeneraattori.generaattori;
 
 /**
- * 
+ * Muuntaa rytmejä byteistä doubleiksi tai merkkijonoksi.
  * @author tgtuuli
  */
-public class Rytmi {
+public class RytminMuuntaja {
     
     
    public double getKestoDoublena(byte rytmi) {

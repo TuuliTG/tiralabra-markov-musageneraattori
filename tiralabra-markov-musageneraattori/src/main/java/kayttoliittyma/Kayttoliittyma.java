@@ -11,10 +11,8 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import markovgeneraattori.Suorituskykytestit;
 import markovgeneraattori.generaattori.Generaattori;
-import markovgeneraattori.generaattori.RytmiGeneraattori;
 import markovgeneraattori.generaattori.Tekstinkasittelija;
 import markovgeneraattori.tietorakenteet.Taulukkolista;
-import markovgeneraattori.tietorakenteet.Trie;
 
 
 /**
@@ -23,7 +21,7 @@ import markovgeneraattori.tietorakenteet.Trie;
  */
 public class Kayttoliittyma {
     
-    private Scanner lukija;
+    private final Scanner lukija;
     
     
     public Kayttoliittyma() {
@@ -33,7 +31,6 @@ public class Kayttoliittyma {
     public Kayttoliittyma(Scanner lukija) {
         this.lukija = lukija;
     }
-    
     
     
     public void kaynnista() {
@@ -62,7 +59,6 @@ public class Kayttoliittyma {
     }
     
     private void valikko2() {
-        
         
         System.out.println("Valitse opetusmateriaali:");
         System.out.println("[1] Bach viulusonaatti g-molli osa Presto");
@@ -125,11 +121,7 @@ public class Kayttoliittyma {
             valikko2();
         }
         
-        return;
-        
     }
-    
-    
     
     private void ajaSuorituskykytestit() {
         System.out.println("Millä asteella suoritetaan? [1-8]"); // TEE TÄHÄN VIELÄ SYÖTTEEN VALIDOINTI
@@ -149,7 +141,7 @@ public class Kayttoliittyma {
         
         Generaattori gen = new Generaattori(aste, 3, 8, pituus);
         gen.lueOpetusmateriaali(opetusmateriaali);
-        pituus = pituus * 6;
+        pituus = pituus * 6; 
         byte[] bytet = gen.muodostaSekvenssi(pituus, gen.getSavelTrie(), (byte) 27);
         Tekstinkasittelija kasittelija = new Tekstinkasittelija();
         String tiedosto = kasittelija.muunnaByteistaTekstiksiBach(bytet);
@@ -164,7 +156,7 @@ public class Kayttoliittyma {
      */
     private String generoiMusiikkiaLastenlaulunTyyliin(int aste, int pituus) {
         String opetusmateriaali = this.lueTiedosto("Ukko-Nooa.ly");
-        
+        //Lisätään triehen kaikki opetusmateriaalit
         Generaattori gen = new Generaattori(aste, 4, 4, pituus);
         gen.lueOpetusmateriaali(opetusmateriaali);
         opetusmateriaali = this.lueTiedosto("morkolahtipiiriin.ly");
@@ -175,7 +167,6 @@ public class Kayttoliittyma {
         gen.lueOpetusmateriaali(opetusmateriaali);
         opetusmateriaali = this.lueTiedosto("vihreavalo.ly");
         gen.lueOpetusmateriaali(opetusmateriaali);
-        
         
         Taulukkolista<Byte> rytmi = gen.generoiRytmi();
         byte[] bytet = gen.muodostaSekvenssi(rytmi.koko(), gen.getSavelTrie(), (byte) 0);
@@ -200,4 +191,6 @@ public class Kayttoliittyma {
         }
         return tiedostonSisalto;
     }
+    
+    
 }

@@ -16,7 +16,7 @@ public class Tekstinkasittelija {
     private String[] aanetMerkkijonoina;
     private Taulukkolista<Byte> rytmi;
     private byte viimeisinRytmi;
-    Rytmi rytminkasittelija = new Rytmi();
+    RytminMuuntaja rytminkasittelija = new RytminMuuntaja();
 
     public Tekstinkasittelija() {
         this.aanetMerkkijonoina = new String[] {"c", "cis", "des",  "d", "dis", "es", "e", "f", 
@@ -73,8 +73,7 @@ public class Tekstinkasittelija {
         for (int i = 0; i < bytet.length; i++) {
             byte b = bytet[i];
             byte r = rytmi.get(i);
-            System.out.print("rytmi: ");
-            System.out.print(r + " ");
+            
             if(r < 0) {
                 r *= -1;
                 s = s + "r" + rytminkasittelija.muunnaBytestaMerkiksi(r) + " ";
