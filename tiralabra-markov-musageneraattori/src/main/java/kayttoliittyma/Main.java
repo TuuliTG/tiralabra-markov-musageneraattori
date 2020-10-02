@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package markovgeneraattori;
+package kayttoliittyma;
 
 import kayttoliittyma.Kayttoliittyma;
 import java.nio.file.Paths;

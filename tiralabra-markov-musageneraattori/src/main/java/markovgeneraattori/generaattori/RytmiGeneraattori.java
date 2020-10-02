@@ -22,15 +22,17 @@ public class RytmiGeneraattori {
     private final Trie trie;
     private final int pituusTahteina;
     private final RytminMuuntaja rytmi;
+    private final SekvenssiApuri apuri;
 
     public RytmiGeneraattori(int aste, int tahtilajiOsoittaja, int tahtilajiNimittaja, int pituusTahteina) {
         this.aste = aste;
         this.tahtilajiNimittaja = tahtilajiNimittaja;
         this.tahtilajiOsoittaja = tahtilajiOsoittaja;
-        trie = new Trie(aste);
+        this.trie = new Trie(aste);
         this.muodostettuRytmi = new Taulukkolista<>();
         this.pituusTahteina = pituusTahteina;
         this.rytmi = new RytminMuuntaja();
+        this.apuri = new SekvenssiApuri();
         
     }
     /**
@@ -42,12 +44,12 @@ public class RytmiGeneraattori {
     }
     
     /**
-     * 
+     * @param alku asettaa ensimmäisen rytmin
      */
-    public void generoiRytmi() {
-        //Käytetään Generaattori-luokkaa rytmien hakemiseen Triestä
-        Generaattori gen = new Generaattori(aste, tahtilajiOsoittaja, tahtilajiNimittaja, pituusTahteina*10);
-        byte[] generoituRytmi = gen.muodostaSekvenssi(pituusTahteina*10, trie, (byte) 4);
+    public void generoiRytmi(byte alku) {
+        
+        byte[] generoituRytmi = apuri.muodostaSekvenssi(pituusTahteina*10, trie, alku, aste);
+        
         //generoituRytmi toimii pohjana uuden kappaleen luomiselle
         //Jos tahtiin tulee liikaa iskuja, täytyy ohjelman valita tilalle joku muu rytmi
         int rytmejaGeneroitu = 0;

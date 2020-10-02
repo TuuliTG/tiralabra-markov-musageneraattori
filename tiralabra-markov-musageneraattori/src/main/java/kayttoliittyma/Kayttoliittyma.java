@@ -142,7 +142,7 @@ public class Kayttoliittyma {
         Generaattori gen = new Generaattori(aste, 3, 8, pituus);
         gen.lueOpetusmateriaali(opetusmateriaali);
         pituus = pituus * 6; 
-        byte[] bytet = gen.muodostaSekvenssi(pituus, gen.getSavelTrie(), (byte) 27);
+        byte[] bytet = gen.muodostaSekvenssi(pituus, gen.getSavelTrie(), (byte) 27, aste);
         Tekstinkasittelija kasittelija = new Tekstinkasittelija();
         String tiedosto = kasittelija.muunnaByteistaTekstiksiBach(bytet);
         return tiedosto;
@@ -169,7 +169,7 @@ public class Kayttoliittyma {
         gen.lueOpetusmateriaali(opetusmateriaali);
         
         Taulukkolista<Byte> rytmi = gen.generoiRytmi();
-        byte[] bytet = gen.muodostaSekvenssi(rytmi.koko(), gen.getSavelTrie(), (byte) 0);
+        byte[] bytet = gen.muodostaSekvenssi(rytmi.koko(), gen.getSavelTrie(), (byte) 0, aste);
         Tekstinkasittelija kasittelija = new Tekstinkasittelija();
         String tiedosto = kasittelija.muunnaByteistaTekstiksiLastenLaulu(bytet, rytmi);
         return tiedosto;
