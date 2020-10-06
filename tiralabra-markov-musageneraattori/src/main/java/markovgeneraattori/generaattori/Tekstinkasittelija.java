@@ -5,6 +5,7 @@
  */
 package markovgeneraattori.generaattori;
 
+import markovgeneraattori.tietorakenteet.Pino;
 import markovgeneraattori.tietorakenteet.Taulukkolista;
 
 /**
@@ -66,7 +67,12 @@ public class Tekstinkasittelija {
         return s;
         
     }
-    
+    /**
+     * 
+     * @param bytet
+     * @param rytmi
+     * @return 
+     */
     public String muunnaByteistaTekstiksiLastenLaulu(byte[] bytet, Taulukkolista<Byte> rytmi) {
         String s = "\\version \"2.20.0\"\n\\language \"suomi\"\n"
                 + "\\score {\n{ \\key c \\major \\time 4/4 \n";
@@ -82,6 +88,7 @@ public class Tekstinkasittelija {
             }
             
         }
+        s += "c'1";
         
         s = s + "}\n\\layout {} \n \\midi {\\tempo 4 = 70} \n}";
         
@@ -132,54 +139,95 @@ public class Tekstinkasittelija {
      * @param savel merkkijono, joka kuvaa muunnettavaa säveltä
      * @return byte 
      */
-    private byte muunnaStringistaByteksi(String savel) {
+    public byte muunnaStringistaByteksi(String savel) { //muunna vielä privatiksi
         int oktaaviala = -1;
+        boolean onTauko = false;
+        boolean onPisteellinen = false;
         if (viimeisinRytmi < 0) {
             viimeisinRytmi *= -1;
         }
-        String[] palat = savel.split("[\\'\\,12483\\.]+"); //RATKAISE TÄMÄ - PINOLLA ??? 
+        
+        Pino<Character> pino = new Pino<>();
         for (int i = 0; i < savel.length(); i++) {
-            if (savel.charAt(i) == '\'') {
-                oktaaviala++;
-            } else if (savel.charAt(i) == ',') {
-                oktaaviala--;
-            } else if (savel.charAt(i) == '1') {
-                if (i < savel.length() - 1){
-                    if (savel.charAt(i + 1) == '6') {
-                        viimeisinRytmi = 16;
-                    }
-                } else {
-                    viimeisinRytmi = 1;
+            pino.lisaa(savel.charAt(i));
+        }
+        Pino<Character> rytmiPino = new Pino<>();
+        String savelNimi = "";
+        
+        while (pino.getKoko() > 0) {
+            char merkki = pino.otaAlimmainen();
+            if(merkki == 'r') {
+                onTauko = true;
+            } else if(!onValimerkki(merkki) && !onNumero(merkki)) {
+                savelNimi += merkki;
+            } else if (onValimerkki(merkki)) {
+                if (merkki == '\'') {
+                    oktaaviala++;
+                } else if (merkki == ',') {
+                    oktaaviala--;
                 }
-            } else if (savel.charAt(i) == '2') {
-                viimeisinRytmi = 2;
-            } else if (savel.charAt(i) == '4') {
-                viimeisinRytmi = 4;
-            } else if (savel.charAt(i) == '8') {
-                viimeisinRytmi = 8;
-            } else if (savel.charAt(i) == '3') {
-                viimeisinRytmi = 32;
-            } else if (savel.charAt(i) == '.') {
-                viimeisinRytmi = (byte) (viimeisinRytmi * 1.5);
+            } else if (onNumero(merkki)) {
+                rytmiPino.lisaa(merkki);
+            } else if (merkki == '.') {
+                onPisteellinen = true;
             }
+            System.out.println("merkki " + merkki);
+            System.out.println(this.onNumero(merkki));
+            
         }
-        if (palat[0].equals("r")) {
-            viimeisinRytmi *= -1;
-        }
-        this.rytmi.lisaa(viimeisinRytmi);
-         
+        System.out.println("sävelnimi = " + savelNimi);
+        byte savelBytena = -128;
         for (int i = 0; i < 17; i++) {
-            if (palat[0].equals(aanetMerkkijonoina[i])) {
-                return (byte) (i + oktaaviala * 17);
+            if (savelNimi.equals(aanetMerkkijonoina[i])) {
+                savelBytena = (byte) (i + oktaaviala * 17);
             }
         }
-        return -128;
+        if(rytmiPino.getKoko() == 0) {
+            this.rytmi.lisaa(viimeisinRytmi);
+            return savelBytena; 
+        }
+        String rytmiMerkkijonona = "";
+        
+        while (rytmiPino.getKoko()>0) {
+            rytmiMerkkijonona += rytmiPino.otaAlimmainen();
+        }
+        
+        byte rytmiBytena = Byte.parseByte(rytmiMerkkijonona);
+        if(onPisteellinen) {
+            rytmiBytena = (byte) (rytmiBytena * 1.5);
+        }
+        if (onTauko) {
+            rytmiBytena *= -1;
+        }
+        viimeisinRytmi = rytmiBytena;
+        
+        this.rytmi.lisaa(viimeisinRytmi);
+        
+        return savelBytena;
+        
     }
 
     public Taulukkolista<Byte> getRytmi() {
         return rytmi;
     }
+
+
+    private boolean onNumero(char merkki) {
+        if (merkki == '1' || merkki == '2' || merkki == '3' || merkki == '4' ||
+                merkki == '5' || merkki == '6' || merkki == '7' || merkki == '8' ||
+                merkki == '9' || merkki == '0') {
+            return true;
+        } else {
+            return false;
+        }
+    }
     
-    
-    
+    private boolean onValimerkki(char merkki) {
+        if (merkki == '\'' || merkki == ',' || merkki == '.') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+     
 }

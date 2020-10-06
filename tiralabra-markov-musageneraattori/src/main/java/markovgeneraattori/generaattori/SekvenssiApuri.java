@@ -111,7 +111,20 @@ public class SekvenssiApuri {
         }
         return solmut.get(Math.max(0, i - 1));
     }
-    
+    /*
+    private TrieSolmu getSatunnainenPehmennetty(int kokonaissumma, Taulukkolista<TrieSolmu> solmut) {
+        int[] summat = new int[solmut.koko()];
+        for (int i = 0; i < solmut.koko(); i++) {
+            int summa = solmut.get(i).getLaskuri();
+            double osuus = summa / kokonaissumma;
+            if (osuus < 0.2) {
+                summat[i] = summa * 2;
+            } else if () {
+                
+            }
+        }
+    }
+    */
     private int satunnainen(int arvo){
         return (int) (System.nanoTime() % arvo);
     }
