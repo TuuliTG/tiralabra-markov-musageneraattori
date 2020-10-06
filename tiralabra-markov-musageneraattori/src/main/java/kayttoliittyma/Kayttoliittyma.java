@@ -128,6 +128,7 @@ public class Kayttoliittyma {
         int aste = Integer.parseInt(lukija.nextLine());
         Suorituskykytestit testit = new Suorituskykytestit();
         testit.suorita(aste);
+        testit.testaaGenerointi(aste);
         
     }
     /**

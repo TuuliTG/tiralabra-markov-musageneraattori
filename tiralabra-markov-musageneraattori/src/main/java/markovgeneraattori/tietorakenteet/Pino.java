@@ -34,7 +34,7 @@ public class Pino<T> {
         paallimmainen = seuraava;
         seuraava++;
         koko++;
-        System.out.println("koko:" + koko);
+        //System.out.println("koko:" + koko);
     }
     
     public T otaPaallimmainen(){

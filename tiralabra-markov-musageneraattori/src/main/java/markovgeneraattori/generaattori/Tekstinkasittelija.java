@@ -28,9 +28,9 @@ public class Tekstinkasittelija {
     
     
     /**
-     * 
+     * Pilkkoo opetusmateriaalin ja ottaa siitä talteen rytmin ja sävelen
      * @param teksti
-     * @return 
+     * @return palauttaa sävelet byte-muodossa listana
      */
     public Taulukkolista<Byte> muunnaKappaleTekstistaByteiksi(String teksti) {
         String[] tiedostonOsat = teksti.trim().split("[{}]");
@@ -171,11 +171,11 @@ public class Tekstinkasittelija {
             } else if (merkki == '.') {
                 onPisteellinen = true;
             }
-            System.out.println("merkki " + merkki);
-            System.out.println(this.onNumero(merkki));
+            //System.out.println("merkki " + merkki);
+            //System.out.println(this.onNumero(merkki));
             
         }
-        System.out.println("sävelnimi = " + savelNimi);
+        //System.out.println("sävelnimi = " + savelNimi);
         byte savelBytena = -128;
         for (int i = 0; i < 17; i++) {
             if (savelNimi.equals(aanetMerkkijonoina[i])) {

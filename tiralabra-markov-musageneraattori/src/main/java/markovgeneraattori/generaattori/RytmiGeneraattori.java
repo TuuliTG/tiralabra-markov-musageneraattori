@@ -113,6 +113,9 @@ public class RytmiGeneraattori {
         byte[] haku = new byte[1];
         haku[0] = edeltaja;
         Taulukkolista<TrieSolmu> solmut = trie.getSeuraajat(haku);
+        if (solmut == null) {
+            return rytmi.getRytmiBytena(maksimikesto); 
+        }
         for (int i = 0; i < solmut.koko(); i++) {
             double kesto = rytmi.getKestoDoublena(solmut.get(i).getTunnus());
             if (kesto < maksimikesto) {
