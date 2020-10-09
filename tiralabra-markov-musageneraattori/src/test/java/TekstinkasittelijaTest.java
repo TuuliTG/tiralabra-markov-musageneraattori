@@ -8,6 +8,7 @@ import markovgeneraattori.generaattori.Tekstinkasittelija;
 import markovgeneraattori.tietorakenteet.Taulukkolista;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 
 /**
  *
@@ -15,9 +16,13 @@ import static org.junit.Assert.*;
  */
 public class TekstinkasittelijaTest {
     
-    private Tekstinkasittelija kasittelija = new Tekstinkasittelija();
+    private Tekstinkasittelija kasittelija;
     
-   
+    @Before
+    public void alustus() {
+        kasittelija = new Tekstinkasittelija();
+    }
+    
     @Test
     public void muunnaTekstistaByteiksiEiRytmiaYksiOktaavialaTest(){
         String t = "\\version \"2.20.0\"\n" +
@@ -72,6 +77,31 @@ public class TekstinkasittelijaTest {
         
     }
     
+    
+    @Test
+    public void muunnaTekstistaByteiksiSisaltaaTaukojaJaPisteellisia(){
+        String t = "\\version \"2.20.0\"\n" +
+            "{\n" +
+            "  c'4. e''4 g8 r4 e'8 d,,8 d'8\n" +
+            "}";
+        Taulukkolista<Byte> bytet = kasittelija.muunnaKappaleTekstistaByteiksi(t);
+        Taulukkolista<Byte> rytmi = kasittelija.getRytmi();
+        byte[] oletusRytmi = {6, 4, 8, -4, 8, 8, 8};
+        byte[] todellinenRytmi = new byte[rytmi.koko()];
+        for (int i = 0; i < rytmi.koko(); i++) {
+            todellinenRytmi[i] = rytmi.get(i);
+        }
+        byte[] todellinen = new byte[bytet.koko()];
+        byte[] oletus = {0,23,-7,6,-48,3};
+        for(int i = 0; i < bytet.koko(); i++) {
+            todellinen[i] = bytet.get(i);
+        }
+        
+        assertArrayEquals(oletus, todellinen);
+        assertEquals(oletus.length, todellinen.length);
+        assertArrayEquals(oletusRytmi, todellinenRytmi);
+        
+    }
     
     
     @Test
@@ -133,6 +163,39 @@ public class TekstinkasittelijaTest {
             "\\layout {} \n" +
             " \\midi {\\tempo 8 = 150} \n" +
             "}";
+        assertEquals(oletus, t);
+    }
+    
+    @Test
+    public void muunnaByteistaTekstiksiLastenlaulutyyliin() {
+        Taulukkolista<Byte> rytmi = new Taulukkolista<>();
+        rytmi.lisaaMonta(new Byte[]{4,4,8,8,8,8});
+        byte[] savelet = {0,0,3,6,6,3};
+        String t = kasittelija.muunnaByteistaTekstiksiLastenLaulu(savelet, rytmi);
+        
+        String oletus = "\\version \"2.20.0\"\n\\language \"suomi\"\n"
+                + "\\score {\n{ \\key c \\major \\time 4/4 \n"
+                + "c'4 c'4 d'8 e'8 e'8 d'8 "
+                + "c'1"
+                + "}\n\\layout {} \n \\midi {\\tempo 4 = 70} \n}";
+        
+        assertEquals(oletus, t);
+    }
+    
+    @Test
+    public void muunnaByteistaTekstiksiLastenlaulutyyliinSisaltaaTauon() {
+        Taulukkolista<Byte> rytmi = new Taulukkolista<>();
+        rytmi.lisaaMonta(new Byte[]{4,4,8,8,8,8,-4});
+        byte[] savelet = {0,0,3,6,6,3};
+        String t = kasittelija.muunnaByteistaTekstiksiLastenLaulu(savelet, rytmi);
+        
+        String oletus = "\\version \"2.20.0\"\n\\language \"suomi\"\n"
+                + "\\score {\n{ \\key c \\major \\time 4/4 \n"
+                + "c'4 c'4 d'8 e'8 e'8 d'8 "
+                + "r4 "
+                + "c'1"
+                + "}\n\\layout {} \n \\midi {\\tempo 4 = 70} \n}";
+        
         assertEquals(oletus, t);
     }
 }
