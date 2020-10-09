@@ -12,6 +12,7 @@ Tietorakenteet ja algoritmit -kurssin projektityö. Ohjelma tuottaa musiikkia op
 * [Viikkoraportti 3](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/dokumentaatio/Viikkoraportti3.md)
 * [Viikkoraportti 4](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/dokumentaatio/Viikkoraportti4.md)
 * [Viikkoraportti 5](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/dokumentaatio/Viikkoraportti5.md)
+* [Viikkoraportti 6](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/dokumentaatio/Viikkoraportti6.md)
 
 ## Testaus
 * [Testausdokumentti](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/dokumentaatio/Testausdokumentti.md
