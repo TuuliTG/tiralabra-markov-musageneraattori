@@ -76,14 +76,17 @@ public class Tekstinkasittelija {
     public String muunnaByteistaTekstiksiLastenLaulu(byte[] bytet, Taulukkolista<Byte> rytmi) {
         String s = "\\version \"2.20.0\"\n\\language \"suomi\"\n"
                 + "\\score {\n{ \\key c \\major \\time 4/4 \n";
-        for (int i = 0; i < bytet.length; i++) {
-            byte b = bytet[i];
+        int taukoja = 0;
+        for (int i = 0; i < rytmi.koko(); i++) {
+            
             byte r = rytmi.get(i);
             
             if(r < 0) {
+                taukoja++;
                 r *= -1;
                 s = s + "r" + rytminkasittelija.muunnaBytestaMerkiksi(r) + " ";
             } else {
+                byte b = bytet[i-taukoja];
                 s = s + this.muunnaBytestaMerkiksi(b) + rytminkasittelija.muunnaBytestaMerkiksi(r) + " ";
             }
             
@@ -139,7 +142,7 @@ public class Tekstinkasittelija {
      * @param savel merkkijono, joka kuvaa muunnettavaa säveltä
      * @return byte 
      */
-    public byte muunnaStringistaByteksi(String savel) { //muunna vielä privatiksi
+    private byte muunnaStringistaByteksi(String savel) {
         int oktaaviala = -1;
         boolean onTauko = false;
         boolean onPisteellinen = false;
@@ -165,12 +168,12 @@ public class Tekstinkasittelija {
                     oktaaviala++;
                 } else if (merkki == ',') {
                     oktaaviala--;
+                } else if (merkki == '.') {
+                    onPisteellinen = true;
                 }
             } else if (onNumero(merkki)) {
                 rytmiPino.lisaa(merkki);
-            } else if (merkki == '.') {
-                onPisteellinen = true;
-            }
+            } 
             //System.out.println("merkki " + merkki);
             //System.out.println(this.onNumero(merkki));
             

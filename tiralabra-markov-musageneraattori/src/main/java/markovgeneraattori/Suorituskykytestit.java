@@ -18,7 +18,7 @@ import markovgeneraattori.tietorakenteet.Trie;
  */
 public class Suorituskykytestit {
     
-    private final int[] koko = {10, 100, 1000, 10000, 100000};
+    private final int[] koko = {10, 100, 1000, 10000, 100000, 1000000};
     private final int suoritustenMaara = koko.length;
     private final double[] lisayksetTriehen = new double[suoritustenMaara];
     private final double[] hakuTriesta = new double[suoritustenMaara];
@@ -45,7 +45,7 @@ public class Suorituskykytestit {
                 byte b = (byte) (luku - 128);
                 lista.lisaa(b);
             }
-            
+            //Testataan triehen lisääminen
             for (int k = 0; k < n; k++) {
                 
                 t = System.nanoTime();
@@ -95,7 +95,7 @@ public class Suorituskykytestit {
     }
     
     public void testaaGenerointi(int aste) {
-        System.out.println("suoritetaan geneointitestit");
+        System.out.println("suoritetaan generointitestit");
         Generaattori gen = new Generaattori(aste, 4, 4, 100);
         int n = 100;
         for (int suoritus = 0; suoritus < koko.length; suoritus++) {
@@ -118,12 +118,12 @@ public class Suorituskykytestit {
             
             Arrays.sort(ajat);
             generointi[suoritus] = ajat[ajat.length / 2] / 1000000.0;
-
-            for (int i = 0; i < koko.length; i++) {
-                System.out.println(koko[i] + ": " + generointi[i] + "ms");
-            }   
-            
         }
+        
+        System.out.println("Musiikin generointi asteella " + aste);
+        for (int i = 0; i < koko.length; i++) {
+            System.out.println(koko[i] + ": " + generointi[i] + "ms");
+        }  
     }
     
     private String luoTestiopetusmateriaali(int koko) {

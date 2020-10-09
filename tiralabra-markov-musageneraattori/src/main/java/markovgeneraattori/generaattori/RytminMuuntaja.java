@@ -86,7 +86,7 @@ public class RytminMuuntaja {
            return "4";
        }
        if(rytmi == 6) {
-           return "8.";
+           return "4.";
        }
        if(rytmi == 8) {
            return "8";

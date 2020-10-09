@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import markovgeneraattori.Suorituskykytestit;
 import markovgeneraattori.generaattori.Generaattori;
+import markovgeneraattori.generaattori.RytmiArpoja;
 import markovgeneraattori.generaattori.Tekstinkasittelija;
 import markovgeneraattori.tietorakenteet.Taulukkolista;
 
@@ -88,6 +89,13 @@ public class Kayttoliittyma {
             }
             pituus = Integer.parseInt(valinta);
         }
+        int rytmingenerointitapa = 0;
+        
+        if (kappale == 2) {
+            System.out.println("Haluatko generoida rytmin Markovin ketjulla [1] vai arpoa tahdit satunnaisessa järjestyksessä [2]?");
+            valinta = lukija.nextLine();
+            rytmingenerointitapa = Integer.parseInt(valinta);
+        }
         
         System.out.println("Mihin kansioon talletetaan?");
         String polku = lukija.nextLine();
@@ -104,7 +112,7 @@ public class Kayttoliittyma {
             generoituKappale = generoiMusiikkiaBachinTyyliin(aste, pituus);
             polku += "/bach.ly";
         } else if (kappale == 2) {
-            generoituKappale = generoiMusiikkiaLastenlaulunTyyliin(aste, pituus);
+            generoituKappale = generoiMusiikkiaLastenlaulunTyyliin(aste, pituus, rytmingenerointitapa);
             polku += "/laulu.ly";
         } else {
             System.out.println("numero ei kelpaa");
@@ -120,7 +128,6 @@ public class Kayttoliittyma {
             System.out.println("Virhe " + e.getMessage());
             valikko2();
         }
-        
     }
     
     private void ajaSuorituskykytestit() {
@@ -155,7 +162,7 @@ public class Kayttoliittyma {
      * @param pituus
      * @return 
      */
-    private String generoiMusiikkiaLastenlaulunTyyliin(int aste, int pituus) {
+    private String generoiMusiikkiaLastenlaulunTyyliin(int aste, int pituus, int rytmingenerointitapa) {
         String opetusmateriaali = this.lueTiedosto("Ukko-Nooa.ly");
         //Lisätään triehen kaikki opetusmateriaalit
         Generaattori gen = new Generaattori(aste, 4, 4, pituus);
@@ -169,7 +176,15 @@ public class Kayttoliittyma {
         opetusmateriaali = this.lueTiedosto("vihreavalo.ly");
         gen.lueOpetusmateriaali(opetusmateriaali);
         
-        Taulukkolista<Byte> rytmi = gen.generoiRytmi();
+        Taulukkolista<Byte> rytmi = new Taulukkolista<>();
+        
+        if(rytmingenerointitapa == 1) {
+            rytmi = gen.generoiRytmi();
+        } else if (rytmingenerointitapa == 2) {
+            RytmiArpoja arpoja = new RytmiArpoja();
+            rytmi = arpoja.haeRytmi(pituus);
+        }
+        
         byte[] bytet = gen.muodostaSekvenssi(rytmi.koko(), gen.getSavelTrie(), (byte) 0, aste);
         Tekstinkasittelija kasittelija = new Tekstinkasittelija();
         String tiedosto = kasittelija.muunnaByteistaTekstiksiLastenLaulu(bytet, rytmi);
