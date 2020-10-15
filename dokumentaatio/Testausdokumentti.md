@@ -4,7 +4,7 @@
 Tietorakenteet, generaattori sekä tekstinkäsittelijä-luokka on testattu yksikkötesteillä. Käyttöliittymään on luotu vain pieni testi, joka tarkistaa, että valikot toimivat oikein. Muuten käyttöliittymää on testattu vain manuaalisesti. Yksikkötestien kattavuutta on seurattu JaCoCo-raporttien avulla. Raportti on nähtävillä [tässä](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/tiralabra-markov-musageneraattori/kuvatJaTestitulokset/JaCoCo%20raportti.png)
 
 ## Suorituskykytestit
-## Yleistä suorituskykytesteistä
+### Yleistä suorituskykytesteistä
 Suorituskykyä on testattu 10, 100, 1000, 10 000, 100 000 ja 1000 000 -kokoisilla taulukoilla.  Generaattori-luokassa suurin taulukkokoko jätettiin pois ajan säästämisen vuoksi. Testit tehdään jokaisella taulukolla Trietesteissä 100 kertaa ja Generaattoritesteissä 50 kertaa, ja tuloksista talletetaan mediaani. Näin vähennetään roskien keräykseen ja JIT- kääntämiseen menevän ajan vaikutusta. Ajanottoon käytetään System-nanotimea. 
 
 ### Trie
