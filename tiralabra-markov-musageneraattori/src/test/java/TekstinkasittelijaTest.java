@@ -146,7 +146,7 @@ public class TekstinkasittelijaTest {
         String t = kasittelija.muunnaByteistaTekstiksiBach(bytet);
         String oletus = "\\version \"2.20.0\"\n\\language \"suomi\"\n"
                 + "\\score {\n{ \\key f \\major \\time 3/8 \n"
-                + "c'16 cis'16 d'16 dis'16 e'16 c'16 }\n" +
+                + "c'16 cis'16 d'16 dis'16 e'16 c'16 g'4. }\n" +
             "\\layout {} \n" +
             " \\midi {\\tempo 8 = 150} \n" +
             "}";
@@ -159,7 +159,7 @@ public class TekstinkasittelijaTest {
         String t = kasittelija.muunnaByteistaTekstiksiBach(bytet);
         String oletus = "\\version \"2.20.0\"\n\\language \"suomi\"\n"
                 + "\\score {\n{ \\key f \\major \\time 3/8 \n" +
-            "c'16 dis''16 cis,16 dis'16 dis'''16 h16 }\n" +
+            "c'16 dis''16 cis,16 dis'16 dis'''16 h16 g'4. }\n" +
             "\\layout {} \n" +
             " \\midi {\\tempo 8 = 150} \n" +
             "}";

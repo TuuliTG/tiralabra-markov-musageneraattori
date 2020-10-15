@@ -17,18 +17,19 @@ public class Tekstinkasittelija {
     private String[] aanetMerkkijonoina;
     private Taulukkolista<Byte> rytmi;
     private byte viimeisinRytmi;
-    RytminMuuntaja rytminkasittelija = new RytminMuuntaja();
+    private RytminMuuntaja rytminMuuntaja; 
 
     public Tekstinkasittelija() {
         this.aanetMerkkijonoina = new String[] {"c", "cis", "des",  "d", "dis", "es", "e", "f", 
             "fis", "ges", "g", "gis", "as", "a", "ais", "b", "h"};
         this.rytmi = new Taulukkolista<>();
         this.viimeisinRytmi = 0;
+        this.rytminMuuntaja = new RytminMuuntaja();
     }
     
     
     /**
-     * Pilkkoo opetusmateriaalin ja ottaa siitä talteen rytmin ja sävelen
+     * Pilkkoo opetusmateriaalin ja ottaa siitä talteen rytmin ja sävelen.
      * @param teksti
      * @return palauttaa sävelet byte-muodossa listana
      */
@@ -39,19 +40,21 @@ public class Tekstinkasittelija {
         Taulukkolista<Byte> bytet = new Taulukkolista<>();
         for (int i = 0; i < palat.length; i++) {
             byte aani = muunnaStringistaByteksi(palat[i]);
-            //System.out.println(palat[i]);
             if (aani != -128) {
                 bytet.lisaa(aani);
             }
-            
         }
+        
         return bytet;
+        
     }
     
     /**
-     * Luo generoidusta byte-taulukosta lilypond-ohjelmalle sopivan tekstin. 
-     * Tässä opetusmateriaalina on Bach ja ulostulo on myös siihen sopiva
-     * @param bytet
+     * <p>
+     * Luo generoidusta byte-taulukosta (sävelet) lilypond-ohjelman luettavan tekstin. 
+     * Tässä opetusmateriaalina on Bach ja ulostulo on myös siihen sopiva.
+     * </p>
+     * @param bytet sävelet
      * @return String
      */
     public String muunnaByteistaTekstiksiBach(byte[] bytet) {
@@ -62,13 +65,16 @@ public class Tekstinkasittelija {
             s = s + this.muunnaBytestaMerkiksi(b) + "16 ";
         }
         
-        s = s + "}\n\\layout {} \n \\midi {\\tempo 8 = 150} \n}";
+        s = s + "g'4. }\n\\layout {} \n \\midi {\\tempo 8 = 150} \n}";
         
         return s;
         
     }
     /**
-     * 
+     * <p>
+     * Luo generoidusta byte-taulukosta (sävelet) lilypond-ohjelman luettavan tekstin. 
+     * Tässä opetusmateriaalina on Bach ja ulostulo on myös siihen sopiva.
+     * </p>
      * @param bytet
      * @param rytmi
      * @return 
@@ -81,13 +87,14 @@ public class Tekstinkasittelija {
             
             byte r = rytmi.get(i);
             
-            if(r < 0) {
+            if (r < 0) {
                 taukoja++;
                 r *= -1;
-                s = s + "r" + rytminkasittelija.muunnaBytestaMerkiksi(r) + " ";
+                s = s + "r" + rytminMuuntaja.muunnaBytestaMerkiksi(r) + " ";
             } else {
-                byte b = bytet[i-taukoja];
-                s = s + this.muunnaBytestaMerkiksi(b) + rytminkasittelija.muunnaBytestaMerkiksi(r) + " ";
+                byte b = bytet[i - taukoja];
+                s = s + this.muunnaBytestaMerkiksi(b) +
+                        rytminMuuntaja.muunnaBytestaMerkiksi(r) + " ";
             }
             
         }
@@ -100,13 +107,12 @@ public class Tekstinkasittelija {
     
     
     /**
-     * Muuntaa nuotin numerosta merkkijonomuotoon.
-     * @param tunnus numeron tunnus
+     * <p>Muuntaa nuotin numerosta merkkijonomuotoon.</p>
+     * @param tunnus säveltä kuvaava numero byte-muodossa
      * @return String
      */
     private String muunnaBytestaMerkiksi(byte tunnus) {
         int oktaaviala = 0;
-        //System.out.println("tunnus "  + tunnus);
         if (tunnus > 16) {
             while (tunnus > 16) {
                 tunnus -= 17;
@@ -132,13 +138,15 @@ public class Tekstinkasittelija {
             for (int i = 1; i < oktaaviala; i++) {
                 vastaus += ",";
             }
+            
             return vastaus;
+            
         }
         
     }
     
     /**
-     * Muuntaa merkkijonon (esim. d''16) numeroksi (byte). 
+     * <p>Muuntaa merkkijonon (esim. d''16) numeroksi (byte). </p>
      * @param savel merkkijono, joka kuvaa muunnettavaa säveltä
      * @return byte 
      */
@@ -146,6 +154,7 @@ public class Tekstinkasittelija {
         int oktaaviala = -1;
         boolean onTauko = false;
         boolean onPisteellinen = false;
+        
         if (viimeisinRytmi < 0) {
             viimeisinRytmi *= -1;
         }
@@ -154,14 +163,15 @@ public class Tekstinkasittelija {
         for (int i = 0; i < savel.length(); i++) {
             pino.lisaa(savel.charAt(i));
         }
+        
         Pino<Character> rytmiPino = new Pino<>();
         String savelNimi = "";
         
         while (pino.getKoko() > 0) {
             char merkki = pino.otaAlimmainen();
-            if(merkki == 'r') {
+            if (merkki == 'r') {
                 onTauko = true;
-            } else if(!onValimerkki(merkki) && !onNumero(merkki)) {
+            } else if (!onValimerkki(merkki) && !onNumero(merkki)) {
                 savelNimi += merkki;
             } else if (onValimerkki(merkki)) {
                 if (merkki == '\'') {
@@ -174,29 +184,26 @@ public class Tekstinkasittelija {
             } else if (onNumero(merkki)) {
                 rytmiPino.lisaa(merkki);
             } 
-            //System.out.println("merkki " + merkki);
-            //System.out.println(this.onNumero(merkki));
-            
         }
-        //System.out.println("sävelnimi = " + savelNimi);
+        
         byte savelBytena = -128;
         for (int i = 0; i < 17; i++) {
             if (savelNimi.equals(aanetMerkkijonoina[i])) {
                 savelBytena = (byte) (i + oktaaviala * 17);
             }
         }
-        if(rytmiPino.getKoko() == 0) {
+        if (rytmiPino.getKoko() == 0) {
             this.rytmi.lisaa(viimeisinRytmi);
             return savelBytena; 
         }
         String rytmiMerkkijonona = "";
         
-        while (rytmiPino.getKoko()>0) {
+        while (rytmiPino.getKoko() > 0) {
             rytmiMerkkijonona += rytmiPino.otaAlimmainen();
         }
         
         byte rytmiBytena = Byte.parseByte(rytmiMerkkijonona);
-        if(onPisteellinen) {
+        if (onPisteellinen) {
             rytmiBytena = (byte) (rytmiBytena * 1.5);
         }
         if (onTauko) {
@@ -213,7 +220,6 @@ public class Tekstinkasittelija {
     public Taulukkolista<Byte> getRytmi() {
         return rytmi;
     }
-
 
     private boolean onNumero(char merkki) {
         if (merkki == '1' || merkki == '2' || merkki == '3' || merkki == '4' ||

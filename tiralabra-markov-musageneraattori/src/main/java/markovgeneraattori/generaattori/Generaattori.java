@@ -22,24 +22,30 @@ public class Generaattori {
     private final RytmiGeneraattori rytmigeneraattori;
     private final SekvenssiApuri apuri;
 
-    public Generaattori(int aste, int tahtilajiOsoittaja, int tahtilajiNimittaja, int pituusTahteina) {
+    public Generaattori(int aste, int tahtilajiOsoittaja,
+            int tahtilajiNimittaja, int pituusTahteina) {
         this.aste = aste;
         this.savelTrie = new Trie(aste);
         this.tekstinkasittelija = new Tekstinkasittelija();
-        this.rytmigeneraattori =  new RytmiGeneraattori(aste, tahtilajiOsoittaja, tahtilajiNimittaja, pituusTahteina);
+        this.rytmigeneraattori =  new RytmiGeneraattori(aste, 
+                tahtilajiOsoittaja, tahtilajiNimittaja, pituusTahteina);
         this.rytmi = new Taulukkolista<>();
         this.apuri = new SekvenssiApuri();
         
     }
     /**
      * Käsittelee tekstinkäsittelijällä opetusmateriaalin ja lisää sen triehen.
-     * Ottaa samalla talteen rytmin ja lisää sen omaan rytmiTriehen
+     * Ottaa samalla talteen rytmin ja lisää sen rytmiTriehen
      * @param opetusmateriaali .ly-tiedostomuodossa
      */
-    public void lueOpetusmateriaali(String opetusmateriaali) {
-        Taulukkolista<Byte> aanet = tekstinkasittelija.muunnaKappaleTekstistaByteiksi(opetusmateriaali);
-        rytmi = tekstinkasittelija.getRytmi();
-        rytmigeneraattori.lisaaTriehenRytmit(rytmi);
+    public void lueOpetusmateriaali(String opetusmateriaali, boolean kerataanRytmi) {
+        Taulukkolista<Byte> aanet = 
+                tekstinkasittelija.muunnaKappaleTekstistaByteiksi(opetusmateriaali);
+        if (kerataanRytmi) {
+            rytmi = tekstinkasittelija.getRytmi();
+            rytmigeneraattori.lisaaTriehenRytmit(rytmi);
+        }
+        
         savelTrie.lisaa(aanet);
          
     }

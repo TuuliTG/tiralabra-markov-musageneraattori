@@ -6,7 +6,7 @@
 package markovgeneraattori.tietorakenteet;
 
 /**
- *
+ * @param <T> 
  * @author tgtuuli
  */
 public class Pino<T> {
@@ -27,7 +27,7 @@ public class Pino<T> {
     }
     
     public void lisaa(T alkio){
-        if(seuraava >= maksimiKoko) {
+        if (seuraava >= maksimiKoko) {
             this.kasvataPinonKokoa();
         }
         pino[seuraava] = alkio;
@@ -38,7 +38,7 @@ public class Pino<T> {
     }
     
     public T otaPaallimmainen(){
-        if(koko > 0){
+        if (koko > 0){
             T palautettava = (T) pino[paallimmainen];
             paallimmainen--;
             seuraava--;
@@ -52,7 +52,7 @@ public class Pino<T> {
     }
 
     public T otaAlimmainen(){
-        if(koko > 0){
+        if (koko > 0){
             T palautettava = (T) pino[alimmainen];
             alimmainen++;
             koko--;
@@ -82,8 +82,5 @@ public class Pino<T> {
         System.arraycopy(this.pino, 0, uusiLista, 0, this.koko);
         this.pino = uusiLista;
     }
-    
-    
-    
     
 }

@@ -24,7 +24,8 @@ public class RytmiGeneraattori {
     private final RytminMuuntaja rytmi;
     private final SekvenssiApuri apuri;
 
-    public RytmiGeneraattori(int aste, int tahtilajiOsoittaja, int tahtilajiNimittaja, int pituusTahteina) {
+    public RytmiGeneraattori(int aste, int tahtilajiOsoittaja, 
+            int tahtilajiNimittaja, int pituusTahteina) {
         this.aste = aste;
         this.tahtilajiNimittaja = tahtilajiNimittaja;
         this.tahtilajiOsoittaja = tahtilajiOsoittaja;
@@ -48,7 +49,7 @@ public class RytmiGeneraattori {
      */
     public void generoiRytmi(byte alku) {
         
-        byte[] generoituRytmi = apuri.muodostaSekvenssi(pituusTahteina*10, trie, alku, aste);
+        byte[] generoituRytmi = apuri.muodostaSekvenssi(pituusTahteina * 10, trie, alku, aste);
         
         //generoituRytmi toimii pohjana uuden kappaleen luomiselle
         //Jos tahtiin tulee liikaa iskuja, täytyy ohjelman valita tilalle joku muu rytmi
@@ -57,13 +58,11 @@ public class RytmiGeneraattori {
         double taysiTahti = rytmi.getKestoDoublena((byte) tahtilajiNimittaja) * tahtilajiOsoittaja;
         double tilaaTahdissa = taysiTahti;
         for (int i = 0; i < generoituRytmi.length; i++) {
-            if(tahtienLkm == pituusTahteina) { //Tahteja tarpeeksi valmiina
+            if (tahtienLkm == pituusTahteina) { //Tahteja tarpeeksi valmiina
                 break;
             }
             double seuraavaRytmi = rytmi.getKestoDoublena(generoituRytmi[i]); 
-            //System.out.println("tahteja generoitu " + tahtienLkm);
-            //System.out.println("tilaa tahdissa " + tilaaTahdissa);
-            //System.out.println("seuraava rytmi doublena " + seuraavaRytmi);
+            
             
             //Tarkastetaan, onko tahdissa tilaa generaattorin ehdottamalle rytmille
             if (seuraavaRytmi <= tilaaTahdissa) {
@@ -75,8 +74,8 @@ public class RytmiGeneraattori {
                     tilaaTahdissa = taysiTahti;
                 }
             } else { //Ei ollut tilaa, joten haetaan rytmi, joka sopii tahtiin
-                byte seuraava = haeSopivaRytmi(muodostettuRytmi.get(rytmejaGeneroitu-1), tilaaTahdissa);
-                //System.out.println("haettiin sopiva rytmi " + seuraava);
+                byte seuraava = haeSopivaRytmi(muodostettuRytmi.get(rytmejaGeneroitu - 1),
+                        tilaaTahdissa);
                 muodostettuRytmi.lisaa(seuraava);
                 tilaaTahdissa -= rytmi.getKestoDoublena(seuraava);
                 rytmejaGeneroitu++;
@@ -86,12 +85,7 @@ public class RytmiGeneraattori {
                 }
             }
         }
-        /*System.out.println("tahtilaji: " + tahtilajiOsoittaja + "/" + tahtilajiNimittaja);
-        for (int i = 0; i < muodostettuRytmi.koko(); i++) {
-            System.out.print(muodostettuRytmi.get(i) + " ");
-        }
-        System.out.println("");
-        */
+      
     }
 
     public Trie getTrie() {

@@ -5,12 +5,6 @@
  */
 package kayttoliittyma;
 
-import kayttoliittyma.Kayttoliittyma;
-import java.nio.file.Paths;
-import markovgeneraattori.generaattori.Generaattori;
-import markovgeneraattori.generaattori.Tekstinkasittelija;
-import markovgeneraattori.tietorakenteet.Taulukkolista;
-
 
 /**
  *
@@ -20,9 +14,7 @@ public class Main {
 
     
     
-    /**
-     * @param args the command line arguments
-     */
+   
     public static void main(String[] args) {
         
      

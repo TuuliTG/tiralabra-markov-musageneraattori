@@ -16,10 +16,11 @@ public class Trie {
     private TrieSolmu juuri;
     private int aste;
 
-    public Trie(int maksimiaste) {
+    public Trie(int aste) {
         juuri = new TrieSolmu();
-        this.aste = maksimiaste;
+        this.aste = aste;
     }
+    
     /**
      * 
      * @param aanet 
@@ -87,17 +88,18 @@ public class Trie {
                         this.lisaaUusiTaiPaivita(nykyinen, aani);
                         nykyinen = nykyinen.getLapset()[aani + 128];
                     }
-                    //System.out.println("---------");
                     nykyinen = juuri;
                 }
             }
-        if (aste > 1 && aanet.koko() > 1) { //lisätään Triehen taulukosta loput pienemmällä asteella, jotta triestä voidaan hakea esim. 2 viimeistä
+        //lisätään Triehen taulukosta loput pienemmällä asteella,
+        //jotta triestä voidaan hakea esim. 2 viimeistä
+        if (aste > 1 && aanet.koko() > 1) { 
             Taulukkolista loput = new Taulukkolista(); //tehdään oma taulukko lopuista alkioista
             for (int i = aanet.koko() - aste; i < aanet.koko(); i++) {
                 loput.lisaa(aanet.get(i));
             }
-            
-            if (loput.koko() > 1) { //lisää kunnes jäljellä 2. Opetusnäytteen viimeistä alkiota ei voi hakea yksinään.
+            //lisää kunnes jäljellä 2. Opetusnäytteen viimeistä alkiota ei voi hakea yksinään.
+            if (loput.koko() > 1) { 
                 lisaaTriehen(loput, aste - 1);
             }
         }
@@ -116,12 +118,10 @@ public class Trie {
             TrieSolmu lisattava = new TrieSolmu(tunnus);
             juuri.getLapset()[aani] = lisattava;
             juuri.getSeuraajat().lisaa(lisattava);
-            //System.out.println("lisätään " + tunnus);
         }  else {
 
             TrieSolmu paivitettava = juuri.getLapset()[aani];
             paivitettava.lisaaLaskuriin();
-            //System.out.println("päivitetään " + paivitettava.getTunnus());
             juuri.getLapset()[aani] = paivitettava;
         }
     }

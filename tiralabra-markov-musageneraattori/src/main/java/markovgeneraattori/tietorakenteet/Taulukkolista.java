@@ -54,6 +54,5 @@ public class Taulukkolista<T> {
             this.lisaa((T) array[i]);
         }
     }
-    
-    
+  
 }

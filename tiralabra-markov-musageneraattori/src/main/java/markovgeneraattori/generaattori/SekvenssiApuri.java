@@ -57,7 +57,6 @@ public class SekvenssiApuri {
         byte[] avain = new byte[mihin + 1 - mista];
         System.arraycopy(hakuavain, mista, avain, 0, (mihin + 1 - mista));
         
-        
         //haetaan hakuavaimella löytyvät seuraajat
         Taulukkolista<TrieSolmu> lapset = trie.getSeuraajat(avain);
         
@@ -87,6 +86,8 @@ public class SekvenssiApuri {
         }
         //Arvotaan seuraava
         TrieSolmu seuraava = this.getSatunnainen(kokonaissumma, lapset);
+        //TrieSolmu seuraava = this.getSatunnainenPehmennetty(kokonaissumma, lapset);
+        //System.out.println("valittiin seuraavaksi :" + seuraava.getTunnus());
         return seuraava.getTunnus();
             
     }
@@ -100,7 +101,6 @@ public class SekvenssiApuri {
      */
     private TrieSolmu getSatunnainen(int kokonaissumma, Taulukkolista<TrieSolmu> solmut) {
         
-        
         //arvottu kokonaisluku 
         int indeksi = 1 + this.satunnainen(kokonaissumma);
         int summa = 0;
@@ -112,20 +112,35 @@ public class SekvenssiApuri {
         }
         return solmut.get(Math.max(0, i - 1));
     }
-    /*
-    private TrieSolmu getSatunnainenPehmennetty(int kokonaissumma, Taulukkolista<TrieSolmu> solmut) {
-        int[] summat = new int[solmut.koko()];
-        for (int i = 0; i < solmut.koko(); i++) {
-            int summa = solmut.get(i).getLaskuri();
-            double osuus = summa / kokonaissumma;
-            if (osuus < 0.2) {
-                summat[i] = summa * 2;
-            } else if () {
-                
+    
+    private TrieSolmu getSatunnainenPehmennetty(int kokonaissumma,
+            Taulukkolista<TrieSolmu> solmut) {
+        int lukumaara = solmut.koko();
+        int arvo = kokonaissumma;
+        double rajaArvo = 1 / (double) lukumaara / 2.0;
+        int[] summat = new int[lukumaara];
+        for (int i = 0; i < lukumaara; i++) {
+            int solmunLaskuri = solmut.get(i).getLaskuri();
+            double todellinen = solmunLaskuri / (double) kokonaissumma;
+            if (todellinen < rajaArvo){
+                summat[i] = solmunLaskuri + 1;
+                arvo++;
+            } else {
+                summat[i] = solmunLaskuri;
             }
         }
+        //arvottu kokonaisluku 
+        int indeksi = 1 + this.satunnainen(arvo);
+        int summa = 0;
+        int i = 0;
+        //etsitään arvottua lukua vastaava alkio
+        while (summa < indeksi) {
+            summa += summat[i];
+            i++;
+        }
+        return solmut.get(Math.max(0, i - 1));
     }
-    */
+    
     private int satunnainen(int arvo){
         return (int) (System.nanoTime() % arvo);
     }

@@ -21,13 +21,18 @@ public class RytmiArpoja {
         this.init();
     }
     
+    /**
+     * Arpoo lukumäärän mukaisen määrän tahteja.
+     * @param tahtienLkm tahtien lukumäärä
+     * @return Taulukkolista<Byte> rytmi
+     */
     public Taulukkolista<Byte> haeRytmi(int tahtienLkm) {
         Taulukkolista<Byte> rytmi = new Taulukkolista<>();
         
         for (int i = 0; i < tahtienLkm; i++) {
             byte[] r = this.arvoTahti();
             for (int j = 0; j < r.length; j++) {
-                if(r[j] == 0){
+                if (r[j] == 0){
                     break;
                 }
                 rytmi.lisaa(r[j]);
@@ -47,6 +52,9 @@ public class RytmiArpoja {
         return (int) (System.nanoTime() % arvo);
     }
     
+    /**
+     * Mahdolliset tahdit, joista ohjelmaa arpoo.
+     */
     private void  init() {
         
         tahdit[0][0] = 2;
