@@ -61,7 +61,7 @@ public class Kayttoliittyma {
         int materiaali = 0;
         String valinta = "";
         
-        while (materiaali != 1 || materiaali != 2) {
+        while (materiaali != 1 && materiaali != 2) {
             System.out.println("Valitse opetusmateriaali:");
             System.out.println("[1] Bach viulusonaatti g-molli osa Presto");
             System.out.println("[2] Lastenlaulupotpuri");
