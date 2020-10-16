@@ -1,11 +1,11 @@
 # Testaus
 
 ## Yksikkötestit
-Tietorakenteet, generaattori sekä tekstinkäsittelijä-luokka on testattu yksikkötesteillä. Käyttöliittymään on luotu vain pieni testi, joka tarkistaa, että valikot toimivat oikein. Muuten käyttöliittymää on testattu vain manuaalisesti. Yksikkötestien kattavuutta on seurattu JaCoCo-raporttien avulla. Raportti on nähtävillä [tässä](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/tiralabra-markov-musageneraattori/kuvatJaTestitulokset/JaCoCo%20raportti.png)
+Suurin osa luokista on testattu kattavasti yksikkötesteillä. Käyttöliittymään on luotu vain pieni testi, joka tarkistaa, että valikot toimivat oikein. Muuten käyttöliittymää on testattu vain manuaalisesti. RytminMuuntaja-luokkaan ei ole tehty erikseen testejä, sillä se on hyvin yksinkertainen eikä mielestäni kaivannut sen suurempaa testaamista. Yksikkötestien kattavuutta on seurattu JaCoCo-raporttien avulla. Raportti on nähtävillä [tässä](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/tiralabra-markov-musageneraattori/kuvatJaTestitulokset/JaCoCoRaportti.png)
 
 ## Suorituskykytestit
 ### Yleistä suorituskykytesteistä
-Suorituskykyä on testattu 10, 100, 1000, 10 000, 100 000 ja 1000 000 -kokoisilla taulukoilla.  Generaattori-luokassa suurin taulukkokoko jätettiin pois ajan säästämisen vuoksi. Testit tehdään jokaisella taulukolla Trietesteissä 100 kertaa ja Generaattoritesteissä 50 kertaa, ja tuloksista talletetaan mediaani. Näin vähennetään roskien keräykseen ja JIT- kääntämiseen menevän ajan vaikutusta. Ajanottoon käytetään System-nanotimea. 
+Suorituskykyä on testattu 10, 100, 1000, 10 000, 100 000 ja 1000 000 -kokoisilla taulukoilla.  Generaattori-luokassa suurin taulukkokoko jätettiin pois ajan säästämisen vuoksi. Testit tehdään jokaisella taulukolla Trietesteissä 100 kertaa ja Generaattoritesteissä 50 kertaa, ja tuloksista talletetaan mediaani. Näin vähennetään roskien keräykseen ja JIT- kääntämiseen menevän ajan vaikutusta. Ajanottoon käytetään System.nanotimea. 
 
 ### Trie
   Trie-testi testaa triehen lisäämistä sekä triestä hakemista satunnaisilla alkioilla. Generaattori-testissä testataan aikaa, joka kuluu satunnaisesti luodun opetusmateriaalin lukemiseen Tekstinkäsittelijällä ja sen jälkeen musiikin generoimiseen. Testiin ei ole otettu mukaan tuotetun musiikin kääntämistä tekstitiedostoksi. 
@@ -21,7 +21,8 @@ Tässä testissä rytmiä ei tallenneta triehen eikä kappaletta generoidessa ta
 Edeltävät testit eivät ole täysin vertailukelpoiset, sillä ensimmäisessä tilanteessa molempiin Trieihin talletetaan n alkiota (10,100, 1000 jne.). Toisessa arvotaan ensin n/2 määrä tahtia, ja luodaan sitten melodia sille määrälle nuotteja, joita syntyy tahtien arpomisen perusteella. Tahdissa on keskimäärin 4,6 säveltä, joten todennäköisesti säveliä generoidaan noin kaksinkertainen määrä verrattuna edelliseen testiin. Molemmissa edeltävissä testeissä jokainen taulukkokoko testattiin 50 kertaa ja tuloksista talletettiin mediaani. Tällä kertaa testejä ei tehty 100 kertaa ajan säästämisen takia. 
 
 ## Checkstyle
-* Tämänhetkinen raportti nähtävillä [täällä](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/tiralabra-markov-musageneraattori/kuvatJaTestitulokset/CheckStyleRaportti2509.png)
+* Raportti nähtävillä [täällä](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/tiralabra-markov-musageneraattori/kuvatJaTestitulokset/CheckstyleRaportti.png)
+* Testiluokkien raportti [täällä](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/tiralabra-markov-musageneraattori/kuvatJaTestitulokset/CheckstyleTestit.png)
 
 ## Tulokset ja päätelmät
 Taulukoidut tulokset on nähtävillä [tässä](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/tiralabra-markov-musageneraattori/kuvatJaTestitulokset/Suorituskykytestit.pdf)

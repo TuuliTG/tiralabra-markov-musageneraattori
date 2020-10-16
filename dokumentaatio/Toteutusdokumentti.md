@@ -37,14 +37,14 @@ Käyttöliittymä-luokka luo käyttäjälle tekstimuotoisen valikon. Käyttäjä
 ## Aika- ja tilavaativuudet 
 * Triehen tallennus: aikavaativuus O(n * m), missä n on tallennettavien alkioiden määrä ja m on markovin aste. Tilavaativuus samoin O(n * m).
 * Triestä hakeminen onnistuu ajassa O(n), missä n on hakuavaimen pituus. Hakuavaimen pituus voi olla enintään sen Markovin asteen pituinen, mitä on käytetty triehen tallentamisessa. Triestä hakeminen muutaman merkin pituisella hakuavaimella on siis erittäin nopeaa.  
-* Musiikin generoiminen: Kun myös rytmi generoidaan trien perusteella, generointi vie runsaasti aikaa. Triehen lisäys tehdään kaksi kertaa, yksi melodiaa varten ja yksi rytmiä. Samoin sekvenssi tehdään erikseen rytmille ja melodialle. 
 
 ## Saavutetut aika- ja tilavaativuudet
-Triehen tallentaminen ja sieltä hakeminen saavutettiin tavoitteessa O(n * m). Ohjelmassa musiikin generoiminen vie runsaasti aikaa
+Triehen tallentaminen ja sieltä hakeminen saavutettiin tavoitteessa O(n * m). Musiikin generoimiseen tarvittavia aika- ja tilavaativuuksia ei tässä sen tarkemmin analysoida. 
 
 ## Generoidun musiikin laadusta
-Bachissa rytmi pysyy koko ajan samanlaisena, joten musiikki kuulostaa helposti luontevalta ja siitä tunnistaa alkuperäisen säveltäjän. 
-Lastenlaulussa rytmin voi generoida trien avulla tai arpomalla valmiista tahdeista. Trien perusteella tehtynä rytmistä tulee melko outo. Tahdit ovat kyllä teknisesti ottaen oikeanlaisia (oikea määrä iskuja / tahti), mutta ne ovat luonnottomia. Arpomalla rytmi on luonnollisempi, riippuu vähän arpaonnesta, kuinka onnistunut rytmistä tulee. 
+Bachissa rytmi pysyy koko ajan samanlaisena, joten generoitu musiikki kuulostaa jo 3. asteelta ylöspäin luontevalta ja siitä tunnistaa alkuperäisen säveltäjän. 5. astetta käytettäessä melodia alkaa olla jo huomattavalta osalta suoraa kopiota alkuperäisestä näytteestä. 
+
+Lastenlaulussa rytmin voi generoida trien avulla tai arpomalla valmiista tahdeista. Trien perusteella tehtynä rytmistä tulee melko outo. Tahdit ovat kyllä teknisesti ottaen oikeanlaisia (oikea määrä iskuja / tahti), mutta ne ovat epäluonnollisia, matemaattisia. Arpomalla rytmi on luonnollisempi, mutta riippuu vähän arpaonnesta, kuinka onnistunut rytmistä tulee. Lastenlaulussa opetusmateriaalina on käytetty useaa eri laulua, joten 5. asteenkaan ketjulla generoituna musiikki ei kuulosta suoraan miltään tutulta. Tähän vaikuttaa tietysti myös uusi rytmi. Lastenlaulugeneraattoria voisin kuvitella käyttäväni jopa ihan käytännössä. Esimerkiksi [tämä](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/tree/master/tiralabra-markov-musageneraattori/nuotitjamidit/laulu5asteArvottu.pdf) 5. asteen ketjulla ja arvotulla rytmillä generoitu kappale kelpaisi jo ihan lauluksi, jos siihen keksisi sanat. 
 
 Ohjelma lisää automaattisesti sekä Bachista että Lastenlaulusta generoituun musiikkiin viimeiseksi säveleksi sävellajin perussävelen. Tämä lisää hieman uskottavuutta. 
 

@@ -1,20 +1,20 @@
 
-import kayttoliittyma.Kayttoliittyma;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.PrintStream;
-import java.util.Scanner;
-import static org.junit.Assert.assertTrue;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.PrintStream;
+import java.util.Scanner;
+import kayttoliittyma.Kayttoliittyma;
 
 /**
  *
@@ -36,7 +36,7 @@ public class KayttoliittymaTest {
     
     @Test
     public void kayttoliittymaValikkoToimii() throws Exception{
-        Scanner lukija = new Scanner(liita(new String[]{"1","1","3","12","testing"}));
+        Scanner lukija = new Scanner(liita(new String[]{"1", "1", "3", "12", "testing"}));
         Kayttoliittyma kayttoliittyma = new Kayttoliittyma(lukija);
         kayttoliittyma.kaynnista();
         String[] syote = syoteUlos.toString().split("\n");
@@ -49,7 +49,7 @@ public class KayttoliittymaTest {
     
     @Test
     public void kayttoliittymaLuoTiedoston() {
-        Scanner lukija = new Scanner(liita(new String[]{"1","1","3","12","testing"}));
+        Scanner lukija = new Scanner(liita(new String[]{"1", "1", "3", "12", "testing"}));
         Kayttoliittyma kayttoliittyma = new Kayttoliittyma(lukija);
         kayttoliittyma.kaynnista();
         File tiedosto = new File("testing/bach.ly");

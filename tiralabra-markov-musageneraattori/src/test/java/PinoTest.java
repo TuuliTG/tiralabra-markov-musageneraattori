@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-import markovgeneraattori.tietorakenteet.Pino;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
+import markovgeneraattori.tietorakenteet.Pino;
 
 /**
  *

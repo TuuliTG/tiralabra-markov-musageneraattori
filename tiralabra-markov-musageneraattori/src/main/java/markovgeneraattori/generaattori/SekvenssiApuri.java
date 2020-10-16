@@ -112,6 +112,10 @@ public class SekvenssiApuri {
         }
         return solmut.get(Math.max(0, i - 1));
     }
+    /*
+    TÄMÄ JÄTETÄÄN OHJELMASTA POIS, KOSKA SILLÄ EI OLLUT KÄYTÖSSÄ
+    OLEVAN OPETUSMATERIAALIN KANSSA KÄYTTÖÄ.
+    jÄTETÄÄN TÄHÄN MAHDOLLISTA TULEVAA HYÖDYNTÄMISTÄ VARTEN
     
     private TrieSolmu getSatunnainenPehmennetty(int kokonaissumma,
             Taulukkolista<TrieSolmu> solmut) {
@@ -140,7 +144,7 @@ public class SekvenssiApuri {
         }
         return solmut.get(Math.max(0, i - 1));
     }
-    
+    */
     private int satunnainen(int arvo){
         return (int) (System.nanoTime() % arvo);
     }

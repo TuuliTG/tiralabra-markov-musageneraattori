@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-import markovgeneraattori.tietorakenteet.Taulukkolista;
-import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.Test;
+import markovgeneraattori.tietorakenteet.Taulukkolista;
 
 /**
  *

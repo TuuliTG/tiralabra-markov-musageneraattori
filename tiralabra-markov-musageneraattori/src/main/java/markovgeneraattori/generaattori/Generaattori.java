@@ -24,6 +24,7 @@ public class Generaattori {
 
     public Generaattori(int aste, int tahtilajiOsoittaja,
             int tahtilajiNimittaja, int pituusTahteina) {
+        
         this.aste = aste;
         this.savelTrie = new Trie(aste);
         this.tekstinkasittelija = new Tekstinkasittelija();
@@ -35,7 +36,8 @@ public class Generaattori {
     }
     /**
      * Käsittelee tekstinkäsittelijällä opetusmateriaalin ja lisää sen triehen.
-     * Ottaa samalla talteen rytmin ja lisää sen rytmiTriehen
+     * Ottaa samalla talteen rytmin ja lisää sen rytmiTriehen.
+     * @param kerataanRytmi boolean, kertoo, kerätäänkö opetusmateriaalista rytmi triehen vai ei.
      * @param opetusmateriaali .ly-tiedostomuodossa
      */
     public void lueOpetusmateriaali(String opetusmateriaali, boolean kerataanRytmi) {
@@ -50,6 +52,11 @@ public class Generaattori {
          
     }
     
+    /**
+     * Generoi opetusmateriaalista poimitun rytmin perusteella uuden rytmin käyttäen trietä.
+     * 
+     * @return Taulukkolista muodostettu rytmi
+     */
     public Taulukkolista<Byte> generoiRytmi() {
         rytmigeneraattori.generoiRytmi(rytmi.get(0));
         return rytmigeneraattori.getMuodostettuRytmi();
@@ -69,6 +76,10 @@ public class Generaattori {
 
     public Trie getSavelTrie() {
         return savelTrie;
+    }
+    
+    public Taulukkolista<Byte> getRytmi() {
+        return this.rytmi;
     }
 
 }

@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 
-import markovgeneraattori.generaattori.Tekstinkasittelija;
-import markovgeneraattori.tietorakenteet.Taulukkolista;
-import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.Test;
+import markovgeneraattori.generaattori.Tekstinkasittelija;
+import markovgeneraattori.tietorakenteet.Taulukkolista;
 
 /**
  *
@@ -31,8 +31,8 @@ public class TekstinkasittelijaTest {
             "}";
         Taulukkolista<Byte> bytet = kasittelija.muunnaKappaleTekstistaByteiksi(t);
         byte[] todellinen = new byte[bytet.koko()];
-        byte[] oletus = {0,6,10,6};
-        for(int i = 0; i < bytet.koko(); i++) {
+        byte[] oletus = {0, 6, 10, 6};
+        for (int i = 0; i < bytet.koko(); i++) {
             todellinen[i] = bytet.get(i);
         }
         
@@ -49,8 +49,8 @@ public class TekstinkasittelijaTest {
             "}";
         Taulukkolista<Byte> bytet = kasittelija.muunnaKappaleTekstistaByteiksi(t);
         byte[] todellinen = new byte[bytet.koko()];
-        byte[] oletus = {0,6,10,6,3,3};
-        for(int i = 0; i < bytet.koko(); i++) {
+        byte[] oletus = {0, 6, 10, 6, 3, 3};
+        for (int i = 0; i < bytet.koko(); i++) {
             todellinen[i] = bytet.get(i);
         }
         
@@ -67,8 +67,8 @@ public class TekstinkasittelijaTest {
             "}";
         Taulukkolista<Byte> bytet = kasittelija.muunnaKappaleTekstistaByteiksi(t);
         byte[] todellinen = new byte[bytet.koko()];
-        byte[] oletus = {0,23,-7,6,-48,3};
-        for(int i = 0; i < bytet.koko(); i++) {
+        byte[] oletus = {0, 23, -7, 6, -48, 3};
+        for (int i = 0; i < bytet.koko(); i++) {
             todellinen[i] = bytet.get(i);
         }
         
@@ -92,8 +92,8 @@ public class TekstinkasittelijaTest {
             todellinenRytmi[i] = rytmi.get(i);
         }
         byte[] todellinen = new byte[bytet.koko()];
-        byte[] oletus = {0,23,-7,6,-48,3};
-        for(int i = 0; i < bytet.koko(); i++) {
+        byte[] oletus = {0, 23, -7, 6, -48, 3};
+        for (int i = 0; i < bytet.koko(); i++) {
             todellinen[i] = bytet.get(i);
         }
         
@@ -116,7 +116,7 @@ public class TekstinkasittelijaTest {
         for (int i = 0; i < rytmit.koko(); i++) {
             r[i] = rytmit.get(i);
         }
-        int[] oletus = {4,4,8,8,8,8};
+        int[] oletus = {4, 4, 8, 8, 8, 8};
         assertArrayEquals(oletus, r);
         assertEquals(6, r.length);
         
@@ -134,7 +134,7 @@ public class TekstinkasittelijaTest {
         for (int i = 0; i < rytmit.koko(); i++) {
             r[i] = rytmit.get(i);
         }
-        int[] oletus = {4,4,8,16,16,16};
+        int[] oletus = {4, 4, 8, 16, 16, 16};
         assertArrayEquals(oletus, r);
         assertEquals(6, r.length);
         
@@ -142,7 +142,7 @@ public class TekstinkasittelijaTest {
     
     @Test
     public void muunnaByteistaTekstiksiBachTestYksiOktaaviala() {
-        byte[] bytet = {0,1,3,4,6,0};
+        byte[] bytet = {0, 1, 3, 4, 6, 0};
         String t = kasittelija.muunnaByteistaTekstiksiBach(bytet);
         String oletus = "\\version \"2.20.0\"\n\\language \"suomi\"\n"
                 + "\\score {\n{ \\key f \\major \\time 3/8 \n"
@@ -155,7 +155,7 @@ public class TekstinkasittelijaTest {
     
     @Test
     public void muunnaByteistaTekstiksiBachTestUseampiOktaaviala() {
-        byte[] bytet = {0,21,-33,4,38,-1};
+        byte[] bytet = {0, 21, -33, 4, 38, -1};
         String t = kasittelija.muunnaByteistaTekstiksiBach(bytet);
         String oletus = "\\version \"2.20.0\"\n\\language \"suomi\"\n"
                 + "\\score {\n{ \\key f \\major \\time 3/8 \n" +
@@ -169,8 +169,8 @@ public class TekstinkasittelijaTest {
     @Test
     public void muunnaByteistaTekstiksiLastenlaulutyyliin() {
         Taulukkolista<Byte> rytmi = new Taulukkolista<>();
-        rytmi.lisaaMonta(new Byte[]{4,4,8,8,8,8});
-        byte[] savelet = {0,0,3,6,6,3};
+        rytmi.lisaaMonta(new Byte[]{4, 4, 8, 8, 8, 8});
+        byte[] savelet = {0, 0, 3, 6, 6, 3};
         String t = kasittelija.muunnaByteistaTekstiksiLastenLaulu(savelet, rytmi);
         
         String oletus = "\\version \"2.20.0\"\n\\language \"suomi\"\n"
@@ -185,8 +185,8 @@ public class TekstinkasittelijaTest {
     @Test
     public void muunnaByteistaTekstiksiLastenlaulutyyliinSisaltaaTauon() {
         Taulukkolista<Byte> rytmi = new Taulukkolista<>();
-        rytmi.lisaaMonta(new Byte[]{4,4,8,8,8,8,-4});
-        byte[] savelet = {0,0,3,6,6,3};
+        rytmi.lisaaMonta(new Byte[]{4, 4, 8, 8, 8, 8, -4});
+        byte[] savelet = {0, 0, 3, 6, 6, 3};
         String t = kasittelija.muunnaByteistaTekstiksiLastenLaulu(savelet, rytmi);
         
         String oletus = "\\version \"2.20.0\"\n\\language \"suomi\"\n"
