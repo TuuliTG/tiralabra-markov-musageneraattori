@@ -32,7 +32,7 @@ public class Suorituskykytestit {
     }
     /**
      * Suorittaa suorituskykytestit triehen lisäämiseen ja triestä hakemiseen.
-     * @param aste 
+     * @param aste kertoo, millä Markovin ketjun asteella suoritetaan.
      */
     public void suorita(int aste) {
         int n = 100; //Testit suoritetaan 100 kertaa ja otetaan tuloksista mediaani
@@ -97,9 +97,11 @@ public class Suorituskykytestit {
         }
        
     }
+    
     /**
      * Suorittaa suorituskykytestit generaattorille.
-     * @param aste 
+     * Luo rytmin Markovin ketjulla
+     * @param aste kertoo, millä Markovin ketjun asteella suoritetaan.
      */
     public void testaaGenerointi(int aste) {
         System.out.println("suoritetaan generointitestit");
@@ -136,6 +138,11 @@ public class Suorituskykytestit {
         }  
     }
     
+    /**
+     * Suorittaa suorituskykytestit generaattorille.
+     * Luo rytmin arpomalla
+     * @param aste kertoo, millä Markovin ketjun asteella suoritetaan.
+     */
     public void testaaGenerointiArvotullaRytmilla(int aste) {
         System.out.println("suoritetaan generointitestit2");
         Generaattori gen = new Generaattori(aste, 4, 4, 100);
@@ -173,7 +180,7 @@ public class Suorituskykytestit {
     
     /**
      * Luo testejä varten sopivan kokoisen opetusmateriaalin.
-     * @param koko
+     * @param koko sävelten lkm
      * @return String opetusmateriaali
      */
     private String luoTestiopetusmateriaali(int koko) {

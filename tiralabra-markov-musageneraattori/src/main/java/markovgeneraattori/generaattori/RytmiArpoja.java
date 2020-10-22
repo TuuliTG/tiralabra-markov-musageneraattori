@@ -8,7 +8,7 @@ package markovgeneraattori.generaattori;
 import markovgeneraattori.tietorakenteet.Taulukkolista;
 
 /**
- *
+ * Arpoo rytmin valmiista tahdeista
  * @author tgtuuli
  */
 public class RytmiArpoja {

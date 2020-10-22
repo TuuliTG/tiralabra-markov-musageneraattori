@@ -27,7 +27,14 @@ jacoco {
     reportsDir = file("$buildDir/customJacocoReportDir")
 }
 
-
+task customFatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'kayttoliittyma.Main'
+    }
+    baseName = 'generaattoriFat'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
 
 mainClassName = 'kayttoliittyma.Main'
 

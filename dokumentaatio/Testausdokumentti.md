@@ -18,7 +18,7 @@ Testi testaa tilannetta, jossa opetusmateriaalin lukemisen yhteydessä kerätä�
 **Rytmi arpomalla valmiista tahdeista**
 Tässä testissä rytmiä ei tallenneta triehen eikä kappaletta generoidessa tarvita kuin melodiatrie.
 
-Edeltävät testit eivät ole täysin vertailukelpoiset, sillä ensimmäisessä tilanteessa molempiin Trieihin talletetaan n alkiota (10,100, 1000 jne.). Toisessa arvotaan ensin n/2 määrä tahtia, ja luodaan sitten melodia sille määrälle nuotteja, joita syntyy tahtien arpomisen perusteella. Tahdissa on keskimäärin 4,6 säveltä, joten todennäköisesti säveliä generoidaan noin kaksinkertainen määrä verrattuna edelliseen testiin. Molemmissa edeltävissä testeissä jokainen taulukkokoko testattiin 50 kertaa ja tuloksista talletettiin mediaani. Tällä kertaa testejä ei tehty 100 kertaa ajan säästämisen takia. 
+Edeltävät testit eivät ole täysin vertailukelpoiset, sillä ensimmäisessä tilanteessa molempiin Trieihin talletetaan n alkiota (10,100, 1000 jne.). Toisessa arvotaan ensin n/2 määrä tahtia, ja luodaan sitten melodia sille määrälle nuotteja, joita syntyy tahtien arpomisen perusteella. Tahdissa on keskimäärin 4,6 säveltä, joten todennäköisesti säveliä generoidaan noin kaksinkertainen määrä verrattuna edelliseen testiin. Molemmissa edeltävissä testeissä jokainen taulukkokoko testattiin 50 kertaa ja tuloksista talletettiin mediaani.
 
 ## Checkstyle
 * Raportti nähtävillä [täällä](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/tiralabra-markov-musageneraattori/kuvatJaTestitulokset/CheckstyleRaportti.png)
@@ -30,6 +30,7 @@ Taulukoidut tulokset on nähtävillä [tässä](https://github.com/TuuliTG/tiral
 Testit tehtiin Intel(R) Core(TM) i5-8250 CPU:lla, jossa on 15,6 GiB muistia. 
 
 ![lisäys ja haku](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/tiralabra-markov-musageneraattori/kuvatJaTestitulokset/lisaysjahaku.png)
+
 Ajat ovat millisekunteina
 
 
@@ -39,6 +40,7 @@ Suurella asteella on nähtävissä trien alustamisen hitaus, mikä olikin oletet
 
 ### Generaattori
 ![generaattori](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/blob/master/tiralabra-markov-musageneraattori/kuvatJaTestitulokset/generaattori.png)
+
 Vaikka eri versiot generaattoritestistä eivät olekaan täysin vertailukelpoiset, on niistä selvästi nähtävissä, että rytmin arpominen ilman Trietä on nopeampaa, jos käytetään isoa Markovin ketjun astelukua. Suurilla syötteillä alle neljän asteluvulla rytmin generoiminen arpomalla näyttäisi olevan jopa hitaampaa. Tässä saattaa olla harhaanjohtavaa se, että syötteen todellinen koko melodiaa generoitaessa on todellisuudessa todennäköisesti suurempi. Testeistä voitaneen silti päätellä, että arpominen on pääsääntöisesti nopeampaa, etenkin isommalla asteella. 
 
 ## Testien toistettavuus

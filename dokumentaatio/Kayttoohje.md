@@ -1,6 +1,8 @@
 # Käyttöohje
 
 ## Ohjelman ajaminen
+### Vaihtoehto 1:
+**Repositorion kloonaaminen:**
 
 Kloonaa ensin repositorio omalle koneellesi ja siirry kloonattuun repositorioon:
 ```

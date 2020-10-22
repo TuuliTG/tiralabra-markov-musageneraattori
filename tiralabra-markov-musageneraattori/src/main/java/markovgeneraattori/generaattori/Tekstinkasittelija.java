@@ -9,7 +9,9 @@ import markovgeneraattori.tietorakenteet.Pino;
 import markovgeneraattori.tietorakenteet.Taulukkolista;
 
 /**
- *
+ * Käsittelee tekstejä.
+ * Kerää tiedon opetusmateriaalista ohjelman käyttöön.
+ * Muuntaa generoidun materiaalin lilypond-ohjelman luettavaan muotoon.
  * @author tgtuuli
  */
 public class Tekstinkasittelija {
@@ -50,10 +52,9 @@ public class Tekstinkasittelija {
     }
     
     /**
-     * <p>
      * Luo generoidusta byte-taulukosta (sävelet) lilypond-ohjelman luettavan tekstin. 
      * Tässä opetusmateriaalina on Bach ja ulostulo on myös siihen sopiva.
-     * </p>
+     * 
      * @param bytet sävelet
      * @return String
      */

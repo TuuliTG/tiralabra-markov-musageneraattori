@@ -46,7 +46,7 @@ Bachissa rytmi pysyy koko ajan samanlaisena, joten generoitu musiikki kuulostaa 
 
 Lastenlaulussa rytmin voi generoida trien avulla tai arpomalla valmiista tahdeista. Trien perusteella tehtynä rytmistä tulee melko outo. Tahdit ovat kyllä teknisesti ottaen oikeanlaisia (oikea määrä iskuja / tahti), mutta ne ovat epäluonnollisia, matemaattisia. Arpomalla rytmi on luonnollisempi, mutta riippuu vähän arpaonnesta, kuinka onnistunut rytmistä tulee. Lastenlaulussa opetusmateriaalina on käytetty useaa eri laulua, joten 5. asteenkaan ketjulla generoituna musiikki ei kuulosta suoraan miltään tutulta. Tähän vaikuttaa tietysti myös uusi rytmi. Lastenlaulugeneraattoria voisin kuvitella käyttäväni jopa ihan käytännössä. Esimerkiksi [tämä](https://github.com/TuuliTG/tiralabra-markov-musageneraattori/tree/master/tiralabra-markov-musageneraattori/nuotitjamidit/laulu5asteArvottu.pdf) 5. asteen ketjulla ja arvotulla rytmillä generoitu kappale kelpaisi jo ihan lauluksi, jos siihen keksisi sanat. 
 
-Ohjelma lisää automaattisesti sekä Bachista että Lastenlaulusta generoituun musiikkiin viimeiseksi säveleksi sävellajin perussävelen. Tämä lisää hieman uskottavuutta. 
+Ohjelma lisää automaattisesti sekä Bachista että Lastenlaulusta generoituun musiikkiin viimeiseksi säveleksi sävellajin perussävelen. Näin kappaleesta saadaan ehjän ja kokonaisen kuuloinen. 
 
 ## Työn puutteet ja parannusehdotukset
 Tämä musiikkigeneraattori ei ole yleiskäyttöinen, sillä se pystyy hyödyntämään vain sitä opetusmateriaalia, mikä sille on nyt valmiiksi kirjoitettu. Jos ohjelmaa haluaisi laajentaa, voisi siitä tehdä erilaista materiaalia lukevan ja kirjoittavan. 

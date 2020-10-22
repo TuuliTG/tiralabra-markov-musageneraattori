@@ -10,7 +10,7 @@ import markovgeneraattori.tietorakenteet.Trie;
 import markovgeneraattori.tietorakenteet.TrieSolmu;
 
 /**
- * 
+ * Generoi rytmin Markovin ketjun perusteella
  * @author tgtuuli
  */
 public class RytmiGeneraattori {
@@ -37,7 +37,7 @@ public class RytmiGeneraattori {
         
     }
     /**
-     * 
+     * Lisää opetusmateriaalista kerätyt rytmit triehen.
      * @param rytmit 
      */
     public void lisaaTriehenRytmit(Taulukkolista<Byte> rytmit) {
@@ -45,6 +45,7 @@ public class RytmiGeneraattori {
     }
     
     /**
+     * Generoi rytmin.
      * @param alku asettaa ensimmäisen rytmin
      */
     public void generoiRytmi(byte alku) {
@@ -97,8 +98,8 @@ public class RytmiGeneraattori {
     }
     
     /**
-     * Hakee tahtiin sopivan rytmin ensisijaisesti trien perusteella.
-     * Jos triestä ei löydy sopivaa, metodi valitsee sen pituisen rytmin, joka tahtiin sopii
+     * Hakee tahtiin seuraavan sopivan rytmin ensisijaisesti trien perusteella.
+     * Jos triestä ei löydy sopivaa, metodi valitsee sen pituisen rytmin, joka tahtiin sopii.
      * @param edeltaja jonka perusteella haetaan triestä mahdolliset seuraavat rytmit
      * @param maksimikesto kertoo paljonko tahdissa on vielä tilaa
      * @return byte rytmi

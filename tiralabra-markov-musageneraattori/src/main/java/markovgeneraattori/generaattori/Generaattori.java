@@ -67,7 +67,7 @@ public class Generaattori {
      * @param pituus sekvenssin pituus
      * @param trie jonka perusteella sekvenssi luodaan
      * @param alkusavel mistä kappale halutaan aloittaa
-     * @param asteluku
+     * @param asteluku mitä Markovin ketjun astetta käytetään
      * @return taulukko eli valmis sekvenssi
      */
     public byte[] muodostaSekvenssi(int pituus, Trie trie, byte alkusavel, int asteluku){

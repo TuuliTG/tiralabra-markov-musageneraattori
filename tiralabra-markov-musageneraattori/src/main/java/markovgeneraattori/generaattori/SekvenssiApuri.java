@@ -10,7 +10,7 @@ import markovgeneraattori.tietorakenteet.Trie;
 import markovgeneraattori.tietorakenteet.TrieSolmu;
 
 /**
- *
+ * Generaattorin ja RytmiGeneraattorin apuluokka. 
  * @author tgtuuli
  */
 public class SekvenssiApuri {
@@ -93,7 +93,7 @@ public class SekvenssiApuri {
     }
     
      /**
-     * satunnaisen solmun valitseminen, perustuen kuitenkin todennäköisyyteen.
+     * Satunnaisen solmun valitseminen, perustuen solmun esiintymistodennäköisyyteen.
      * 
      * @param kokonaissumma "lapsien" yhteenlaskettu ilmentyvyys
      * @param solmut solmut, joista valitaan 
