@@ -2,6 +2,7 @@
 
 ## Ohjelman ajaminen
 ### Vaihtoehto 1:
+
 **Repositorion kloonaaminen:**
 
 Kloonaa ensin repositorio omalle koneellesi ja siirry kloonattuun repositorioon:
@@ -21,6 +22,10 @@ Tämän jälkeen tiedot löytyvät seuraavasti:
 * Javadoc: ./build/docs/javadoc/
 * Checkstyle raportti: ./build/reports/checkstyle/
 * JaCoCo-raportti ./build/reports/tests/test/index.html
+
+
+### Vaihtoehto 2:
+Lataa jar-tiedosto Releaseista ja aja se komennolla `java -jar generaattoriFat.jar`. Koneella täytyy olla tällöin asennettuna JDK11.
 
 ## Ohjelman käyttäminen
 

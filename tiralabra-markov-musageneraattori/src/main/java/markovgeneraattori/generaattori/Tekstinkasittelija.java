@@ -72,10 +72,8 @@ public class Tekstinkasittelija {
         
     }
     /**
-     * <p>
      * Luo generoidusta byte-taulukosta (sävelet) lilypond-ohjelman luettavan tekstin. 
      * Tässä opetusmateriaalina on Bach ja ulostulo on myös siihen sopiva.
-     * </p>
      * @param bytet
      * @param rytmi
      * @return 
@@ -106,9 +104,12 @@ public class Tekstinkasittelija {
         return s;
     }
     
+    public Taulukkolista<Byte> getRytmi() {
+        return rytmi;
+    }
     
     /**
-     * <p>Muuntaa nuotin numerosta merkkijonomuotoon.</p>
+     * Muuntaa nuotin numerosta merkkijonomuotoon.
      * @param tunnus säveltä kuvaava numero byte-muodossa
      * @return String
      */
@@ -147,7 +148,7 @@ public class Tekstinkasittelija {
     }
     
     /**
-     * <p>Muuntaa merkkijonon (esim. d''16) numeroksi (byte). </p>
+     * Muuntaa merkkijonon (esim. d''16) numeroksi (byte).
      * @param savel merkkijono, joka kuvaa muunnettavaa säveltä
      * @return byte 
      */
@@ -217,11 +218,7 @@ public class Tekstinkasittelija {
         return savelBytena;
         
     }
-
-    public Taulukkolista<Byte> getRytmi() {
-        return rytmi;
-    }
-
+    
     private boolean onNumero(char merkki) {
         if (merkki == '1' || merkki == '2' || merkki == '3' || merkki == '4' ||
                 merkki == '5' || merkki == '6' || merkki == '7' || merkki == '8' ||

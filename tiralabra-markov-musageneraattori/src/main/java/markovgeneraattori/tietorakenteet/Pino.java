@@ -6,6 +6,7 @@
 package markovgeneraattori.tietorakenteet;
 
 /**
+ * Pino, josta voi ottaa päällimmäisen tai alimmaisen alkion.
  * @param <T> 
  * @author tgtuuli
  */
@@ -26,6 +27,10 @@ public class Pino<T> {
         this.alimmainen = 0;
     }
     
+    /**
+     * Lisää pinon päällimmäiseksi alkion T.
+     * @param alkio lisättävä
+     */
     public void lisaa(T alkio){
         if (seuraava >= maksimiKoko) {
             this.kasvataPinonKokoa();
@@ -34,9 +39,13 @@ public class Pino<T> {
         paallimmainen = seuraava;
         seuraava++;
         koko++;
-        //System.out.println("koko:" + koko);
     }
     
+    /**
+     * Ottaa päällimmäisen pois pinosta ja palauttaa sen. 
+     * Pinon koko pienenee yhdellä.
+     * @return T päällimmäinen alkio
+     */
     public T otaPaallimmainen(){
         if (koko > 0){
             T palautettava = (T) pino[paallimmainen];
@@ -50,7 +59,11 @@ public class Pino<T> {
         }
         
     }
-
+    /**
+     * Ottaa pinon alimman alkion ja palauttaa sen.
+     * Pinon koko pienenee yhdellä.
+     * @return T alimmainen alkio
+     */
     public T otaAlimmainen(){
         if (koko > 0){
             T palautettava = (T) pino[alimmainen];
@@ -64,6 +77,10 @@ public class Pino<T> {
         
     }
     
+    /**
+     * Palauttaa pinon päällimmäisen alkion, mutta ei poista sitä pinosta.
+     * @return T päällimmäinen alkio
+     */
     public T katsoPaallimmainen() {
         if (koko > 0) {
             return (T) pino[paallimmainen];
@@ -72,6 +89,10 @@ public class Pino<T> {
         }
     }
     
+    /**
+     * Pinon koko
+     * @return int
+     */
     public int getKoko() {
         return koko;
     }

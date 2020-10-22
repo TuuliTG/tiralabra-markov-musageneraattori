@@ -2,7 +2,7 @@
 package markovgeneraattori.tietorakenteet;
 
 /**
- *
+ * 
  * @author tgtuuli
  */
 public class TrieSolmu {

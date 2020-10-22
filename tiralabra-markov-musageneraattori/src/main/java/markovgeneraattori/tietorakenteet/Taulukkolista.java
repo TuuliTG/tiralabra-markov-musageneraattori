@@ -2,6 +2,8 @@
 package markovgeneraattori.tietorakenteet;
 
 /**
+ * Taulukkolista, jonka koko kasvaa joustavasti tarpeen mukaan.
+ * Ei sisällä poista-operaatiota.
  * @param <T> tyyppi
  * @author tgtuuli
  */
@@ -18,6 +20,10 @@ public class Taulukkolista<T> {
         this.maksimiKoko = 10;
     }
     
+    /**
+     * Lisää taulukkoon alkion T.
+     * @param alkio lisättävä alkio
+     */
     public void lisaa(T alkio) {
         if (this.koko == this.maksimiKoko) {
             this.lisaaTaulukonKokoa();
@@ -33,10 +39,19 @@ public class Taulukkolista<T> {
         this.taulukkolista = uusiLista;
     }
     
+    /**
+     * Antaa vastauksena taulukon koon.
+     * @return int taulukon koko
+     */
     public int koko(){
         return this.koko;
     }
     
+    /**
+     * Palauttaa taulukon kohdassa i olevan alkion.
+     * @param i taulukon kohta
+     * @return T 
+     */
     public T get(int i) {
         if (i < 0 || i >= this.koko) {
             throw  new NullPointerException();
@@ -44,10 +59,19 @@ public class Taulukkolista<T> {
         return (T) this.taulukkolista[i];
     }
     
+    /**
+     * Palauttaa true, jos taulukko on tyhjä.
+     * Muuten false
+     * @return boolean 
+     */
     public boolean onTyhja(){
         return this.koko == 0;
     }
     
+    /**
+     * Lisää arrayn kaikki alkiot taulukkoon.
+     * @param array lisättävät alkiot arrayssa
+     */
     public void lisaaMonta(T[] array) {
         
         for (int i = 0; i < array.length; i++) {

@@ -5,10 +5,6 @@
  */
 package kayttoliittyma;
 
-import markovgeneraattori.generaattori.RytmiGeneraattori;
-import markovgeneraattori.generaattori.RytminMuuntaja;
-import markovgeneraattori.tietorakenteet.Taulukkolista;
-
 
 /**
  *
@@ -16,8 +12,6 @@ import markovgeneraattori.tietorakenteet.Taulukkolista;
  */
 public class Main {
 
-    
-    
    
     public static void main(String[] args) {
      

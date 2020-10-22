@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Paths;
 import java.util.Scanner;
 import markovgeneraattori.Suorituskykytestit;
 import markovgeneraattori.generaattori.Generaattori;
@@ -217,37 +216,17 @@ public class Kayttoliittyma {
         return tiedosto;
     }
     
-    private String lueTiedosto2(String tiedostonNimi) {
-        String tiedostonSisalto = "";
-        try (Scanner tiedostonlukija = 
-                new Scanner(Paths.get(tiedostonNimi))) {
-                    
-            while (tiedostonlukija.hasNextLine()) {
-                String rivi = tiedostonlukija.nextLine();
-                if (!rivi.isEmpty()) {
-                    tiedostonSisalto += rivi;
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Virhe: " + e.getMessage());
-        }
-        return tiedostonSisalto;
-    }
-    
-    // works everywhere, IDEA, unit test and JAR file.
-    private InputStream getFileFromResourceAsStream(String fileName) {
+   
+    private InputStream getFileFromResourceAsStream(String tiedostonNimi) {
 
-        // The class loader that loaded the class
         ClassLoader classLoader = getClass().getClassLoader();
-        InputStream inputStream = classLoader.getResourceAsStream(fileName);
+        InputStream inputStream = classLoader.getResourceAsStream(tiedostonNimi);
 
-        // the stream holding the file content
         if (inputStream == null) {
-            throw new IllegalArgumentException("file not found! " + fileName);
+            throw new IllegalArgumentException("tiedostoa ei löytynyt! " + tiedostonNimi);
         } else {
             return inputStream;
         }
-
     }
     
     private String lueTiedosto(String tiedostonNimi){
@@ -257,9 +236,9 @@ public class Kayttoliittyma {
                     new InputStreamReader(is, StandardCharsets.UTF_8);
              BufferedReader reader = new BufferedReader(streamReader)) {
 
-            String line;
-            while ((line = reader.readLine()) != null) {
-                materiaali += line;
+            String rivi;
+            while ((rivi = reader.readLine()) != null) {
+                materiaali += rivi;
             }
 
         } catch (IOException e) {
